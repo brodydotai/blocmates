@@ -708,6 +708,12 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 // ── Shared image store ──
 const imgs = {};
 const links = {};
+const defaultImages = {
+  opportunity: 'genesis/images/PNG%20image.png',
+  anthropic: 'genesis/images/PNG%20image%202.png',
+  nvidia: 'genesis/images/PNG%20image%203.png',
+  citrini: 'genesis/images/PNG%20image%204.png'
+};
 
 // ── Mode ──
 let mode = 'notes';
@@ -789,6 +795,25 @@ function removeImg(key) {
   if (dPh) dPh.style.display = 'flex';
 }
 
+function setCategoryImage(key, src) {
+  imgs[key] = src;
+
+  const slot = document.getElementById('ns-' + key);
+  if (slot) {
+    slot.classList.add('filled');
+    slot.innerHTML = '<div class="n-img-preview"><img src="' + src + '" onclick="openLB(\'' + key + '\')"><button class="n-img-rm" onclick="removeImg(\'' + key + '\')">✕ remove</button></div>';
+  }
+
+  const dImg = document.getElementById('dimg-' + key);
+  const dPh = document.getElementById('dip-' + key);
+  if (dImg) { dImg.src = src; dImg.style.display = 'block'; }
+  if (dPh) dPh.style.display = 'none';
+}
+
+function applyDefaultImages() {
+  Object.entries(defaultImages).forEach(([key, src]) => setCategoryImage(key, src));
+}
+
 // ── Links ──
 function updateLink(key, val) {
   links[key] = val;
@@ -864,6 +889,8 @@ function drop(e, targetId) {
   else parent.insertBefore(src, tgt);
   dragSrc = null;
 }
+
+applyDefaultImages();
 </script>
 </body>
 </html>
