@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/app/blocmates-show-prep.html"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/app/genesis/images/PNG%20image.png"
+    }
+  ]
+}
