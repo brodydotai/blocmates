@@ -16,6 +16,7 @@
   --charcoal: #444342;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
+img { border-radius:14px; }
 body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',sans-serif; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
 
 /* ════════════════════════════
@@ -35,10 +36,6 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .mode-btn.active { background:var(--navy); color:var(--cream); }
 
 .topbar-right { display:flex; align-items:center; gap:10px; }
-.timer { display:flex; align-items:center; gap:7px; background:rgba(237,230,221,0.05); border-radius:6px; padding:6px 13px; }
-.tv { font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; min-width:42px; }
-.tbtn { background:none; border:none; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(237,230,221,0.3); transition:color 0.15s; }
-.tbtn:hover { color:var(--cream); }
 .pill { display:none; align-items:center; gap:5px; background:rgba(128,167,106,0.15); border:1px solid rgba(128,167,106,0.3); border-radius:20px; padding:4px 11px; font-size:12px; color:var(--sage); font-weight:600; }
 .pill-dot { width:6px; height:6px; border-radius:50%; background:var(--sage); }
 .gbtn { padding:6px 15px; border-radius:6px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; cursor:pointer; border:none; transition:all 0.18s; background:rgba(237,230,221,0.07); color:var(--cream); }
@@ -186,6 +183,9 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-slide.has-img .d-img-area { order:1; }
 /* No image: single full content */
 .d-slide.no-img { grid-template-rows:1fr; align-items:center; justify-items:center; }
+.d-slide.image-only { display:flex; align-items:center; justify-content:center; padding:70px 64px 36px; }
+.d-slide.image-only .d-img-area { width:100%; height:100%; max-height:calc(100vh - 120px); }
+.d-slide.intro-hero { grid-template-columns:56% 44%; align-items:center; }
 
 /* Slide counter */
 .d-counter {
@@ -206,9 +206,13 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-img-area {
   position:relative; overflow:hidden; background:rgba(37,63,88,0.15);
   cursor:zoom-in;
+  border-radius:16px;
 }
-.d-img-area img { width:100%; height:100%; object-fit:contain; transition:transform 0.3s; padding:20px; }
+.d-img-area img { width:100%; height:100%; object-fit:contain; transition:transform 0.3s; padding:20px; border-radius:16px; background:rgba(10,10,10,0.45); box-shadow:0 0 0 1px rgba(237,230,221,0.08) inset; }
 .d-img-area:hover img { transform:scale(1.02); }
+.d-img-area.dual { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:16px; cursor:default; }
+.d-img-area.dual img { padding:0; object-fit:cover; background:rgba(10,10,10,0.35); cursor:zoom-in; }
+.d-img-area.dual:hover img { transform:none; }
 .d-img-placeholder {
   width:100%; height:100%; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:8px;
@@ -225,6 +229,16 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-slide.no-img .d-content {
   padding:60px 100px; text-align:left; max-width:1000px; width:100%;
 }
+.d-slide.intro-hero .d-content { padding:70px 60px 60px 92px; max-width:none; }
+.d-intro-right { display:flex; align-items:center; justify-content:center; height:100%; padding-right:56px; }
+.pfp-triangle { position:relative; width:380px; height:360px; }
+.pfp-card { position:absolute; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.pfp-card img { width:122px; height:122px; border-radius:50%; border:2px solid rgba(237,230,221,0.2); object-fit:cover; background:rgba(10,10,10,0.3); }
+.pfp-name { margin-top:10px; font-size:14px; font-weight:700; text-transform:lowercase; }
+.pfp-role { margin-top:3px; font-size:10px; color:var(--red); font-weight:700; text-transform:uppercase; letter-spacing:0.7px; }
+.pfp-top { top:0; left:50%; transform:translateX(-50%); }
+.pfp-left { bottom:12px; left:10px; }
+.pfp-right { bottom:12px; right:10px; }
 
 .d-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--red); margin-bottom:10px; }
 .d-title { font-size:44px; font-weight:700; letter-spacing:-1.5px; line-height:1.05; color:var(--cream); margin-bottom:18px; }
@@ -242,6 +256,13 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-link a { font-size:13px; color:rgba(93,155,213,0.8); font-weight:500; text-decoration:none; word-break:break-all; }
 .d-link a:hover { color:#5b9bd5; }
 .d-link-ico { font-size:14px; }
+.d-twitter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; align-items:start; }
+.d-twitter-grid.one { grid-template-columns:1fr; max-width:560px; }
+.tweet-wrap { background:rgba(237,230,221,0.02); border:1px solid rgba(237,230,221,0.09); border-radius:12px; padding:8px; min-height:220px; }
+.tweet-wrap blockquote.twitter-tweet { margin:0 !important; }
+.tweet-fallback { display:inline-block; margin:6px 0 10px; color:#5b9bd5; font-size:12px; text-decoration:none; }
+.tweet-fallback:hover { text-decoration:underline; }
+.tweet-wrap.embedded .tweet-fallback { display:none; }
 
 /* Stack layout for display */
 .d-stack-grid { display:flex; gap:24px; margin-top:4px; }
@@ -283,12 +304,6 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     <button class="mode-btn" id="displayBtn" onclick="setMode('display')">📺 Display</button>
   </div>
   <div class="topbar-right">
-    <div class="timer">
-      <span style="font-size:12px;opacity:.35">⏱</span>
-      <span class="tv" id="tv">00:00</span>
-      <button class="tbtn" id="tb" onclick="toggleTimer()">start</button>
-      <button class="tbtn" onclick="resetTimer()" style="opacity:.3">reset</button>
-    </div>
     <div class="pill" id="editPill"><div class="pill-dot"></div>editing</div>
     <button class="gbtn" id="editBtn" onclick="toggleEdit()">✏ edit</button>
   </div>
@@ -377,8 +392,8 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
         </div>
       </div>
       <div class="n-card">
-        <div class="n-card-title">Nvidia beats earnings — party is still going <span class="tag ts">🔴 signal</span></div>
-        <div class="n-editable" contenteditable="false">$68.1B revenue, up 73% YoY. Data center up 75% to $62.3B. Q1 guidance $78B. The AI infrastructure trade is not slowing down.</div>
+        <div class="n-card-title">Nvidia beats earnings — the party continues... i think? <span class="tag ts">🔴 signal</span></div>
+        <div class="n-editable" contenteditable="false">$68.1B revenue, up 73% YoY. Data center up 75% to $62.3B. Q1 guidance $78B. The AI infrastructure trade is not slowing down. The stock is trading down today despite the earnings beat.</div>
         <div class="n-img-slot" id="ns-nvidia">
           <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">nvidia earnings chart</span><input type="file" accept="image/*" onchange="loadImg(this,'nvidia')"></label>
         </div>
@@ -436,10 +451,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
         <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">brody</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">host</div>
           <div class="n-editable" contenteditable="false" style="font-size:13px">• Claude Opus 4.6 — architecture, project lead, research<br>• Codex 5.3 — staff engineer<br>• Cursor / Cowork — building<br>• Gemini — advanced searches<br>• Wispr — voice dictation</div>
         </div>
-        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">grant</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">co-host</div>
+        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">grant</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">founder</div>
           <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
         </div>
-        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">563</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">co-host</div>
+        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">563</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">head of research</div>
           <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
         </div>
       </div>
@@ -503,24 +518,53 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 <div id="displayPanel">
 
   <!-- SLIDE 1: Cover -->
-  <div class="d-slide no-img" data-slide="0">
+  <div class="d-slide intro-hero" data-slide="0">
     <div class="d-badge">blocmates.</div>
-    <div class="d-counter"><em>01</em> / 09</div>
+    <div class="d-counter"><em>01</em> / 13</div>
     <div class="d-content">
       <div class="d-label">genesis · episode 01</div>
       <div class="d-title">the ai show<em>.</em></div>
       <div class="d-bullets">
         <div class="d-bullet"><div class="d-bdot"></div>AI is having its 2020–2021 crypto moment</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Personality-driven · opinionated · no hype</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Brody · Grant · 563 — every Friday 10am EST</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Clear takes from builders in the arena, not recycled hype</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Brody (host) · Grant (founder) · 563 (head of research)</div>
+      </div>
+    </div>
+    <div class="d-intro-right">
+      <div class="pfp-triangle">
+        <div class="pfp-card pfp-top">
+          <img src="/app/genesis/images/brody%20pfp.png" alt="Brody profile">
+          <div class="pfp-name">brody</div>
+          <div class="pfp-role">host</div>
+        </div>
+        <div class="pfp-card pfp-left">
+          <img src="/app/genesis/images/grant%20pfp.png" alt="Grant profile">
+          <div class="pfp-name">grant</div>
+          <div class="pfp-role">founder</div>
+        </div>
+        <div class="pfp-card pfp-right">
+          <img src="/app/genesis/images/563%20pfp.png" alt="563 profile">
+          <div class="pfp-name">563</div>
+          <div class="pfp-role">head of research</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 2: Opportunity (image anchor) -->
-  <div class="d-slide has-img" data-slide="1">
+  <!-- SLIDE 2: Intro Visual -->
+  <div class="d-slide image-only" data-slide="1">
     <div class="d-badge">introduction</div>
-    <div class="d-counter"><em>02</em> / 09</div>
+    <div class="d-counter"><em>02</em> / 13</div>
+    <div class="d-img-area" id="di-introVisual" onclick="openLB('introVisual')">
+      <div class="d-img-placeholder" id="dip-introVisual"><div class="p-ico">🖼</div><div>genesis visual</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-introVisual" src="" style="display:none">
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Opportunity (image anchor) -->
+  <div class="d-slide has-img" data-slide="2">
+    <div class="d-badge">introduction</div>
+    <div class="d-counter"><em>03</em> / 13</div>
     <div class="d-img-area" id="di-opportunity" onclick="openLB('opportunity')">
       <div class="d-img-placeholder" id="dip-opportunity"><div class="p-ico">🖼</div><div>opportunity for listeners visual</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-opportunity" src="" style="display:none">
@@ -536,10 +580,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 3: Anthropic -->
-  <div class="d-slide has-img" data-slide="2">
+  <!-- SLIDE 4: Anthropic -->
+  <div class="d-slide has-img" data-slide="3">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>03</em> / 09</div>
+    <div class="d-counter"><em>04</em> / 13</div>
     <div class="d-img-area" id="di-anthropic" onclick="openLB('anthropic')">
       <div class="d-img-placeholder" id="dip-anthropic"><div class="p-ico">🖼</div><div>distillation campaign infographic</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-anthropic" src="" style="display:none">
@@ -556,30 +600,31 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 4: Nvidia -->
-  <div class="d-slide has-img" data-slide="3">
+  <!-- SLIDE 5: Nvidia -->
+  <div class="d-slide has-img" data-slide="4">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>04</em> / 09</div>
-    <div class="d-img-area" id="di-nvidia" onclick="openLB('nvidia')">
-      <div class="d-img-placeholder" id="dip-nvidia"><div class="p-ico">🖼</div><div>nvidia earnings chart</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-nvidia" src="" style="display:none">
+    <div class="d-counter"><em>05</em> / 13</div>
+    <div class="d-img-area dual" id="di-nvidia">
+      <img id="dimg-nvidia" src="" style="display:none" onclick="openLB('nvidia')">
+      <img id="dimg-nvidia2" src="" style="display:none" onclick="openLB('nvidia2')">
     </div>
     <div class="d-content">
       <div class="d-label">🔴 high signal</div>
-      <div class="d-title">the party<br>continues<em>.</em></div>
+      <div class="d-title">the party continues...<br>i think<em>?</em></div>
       <div class="d-bullets">
         <div class="d-bullet"><div class="d-bdot"></div>$68.1B revenue · up 73% YoY</div>
         <div class="d-bullet"><div class="d-bdot"></div>Data center up 75% to $62.3B · Q1 guide $78B</div>
         <div class="d-bullet"><div class="d-bdot"></div>AI infrastructure trade is not slowing down</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Stock is trading down today despite the earnings beat</div>
       </div>
       <div class="d-link" id="dl-nvidia"><span class="d-link-ico">🔗</span><a id="dla-nvidia" href="#" target="_blank"></a></div>
     </div>
   </div>
 
-  <!-- SLIDE 5: Citrini -->
-  <div class="d-slide has-img" data-slide="4">
+  <!-- SLIDE 6: Citrini -->
+  <div class="d-slide has-img" data-slide="5">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>05</em> / 09</div>
+    <div class="d-counter"><em>06</em> / 13</div>
     <div class="d-img-area" id="di-citrini" onclick="openLB('citrini')">
       <div class="d-img-placeholder" id="dip-citrini"><div class="p-ico">🖼</div><div>citrini displacement diagram</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-citrini" src="" style="display:none">
@@ -596,25 +641,102 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 6: Cheat Code -->
-  <div class="d-slide no-img" data-slide="5">
-    <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>06</em> / 09</div>
+  <!-- SLIDE 7: Zillow Lowball Bot -->
+  <div class="d-slide has-img" data-slide="6">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>07</em> / 14</div>
+    <div class="d-img-area" id="di-zillow" onclick="openLB('zillow')">
+      <div class="d-img-placeholder" id="dip-zillow"><div class="p-ico">🖼</div><div>zillow lowball automation</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-zillow" src="" style="display:none">
+    </div>
     <div class="d-content">
-      <div class="d-label">tips · tricks · workflows</div>
-      <div class="d-title">the cheat<br>code<em>.</em></div>
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">ai goes<br>full negotiator<em>.</em></div>
       <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>AI for GTM engineering — applicable to your actual day job</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Polymarket order book data dump + CLI release</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Skills · playbooks · CLAUDE.md — the meta layer most skip</div>
+        <div class="d-bullet"><div class="d-bdot"></div>OpenClaw bot auto-sent Zillow lowball offers at scale</div>
+        <div class="d-bullet"><div class="d-bdot"></div>With AI, we now have effectively infinite time to negotiate price down</div>
+        <div class="d-bullet"><div class="d-bdot"></div>If this pattern expands, AI acts as a broad deflationary force</div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 7: AI Stack -->
-  <div class="d-slide no-img" data-slide="6">
+  <!-- SLIDE 8: Transition -->
+  <div class="d-slide no-img" data-slide="7">
+    <div class="d-badge">the cheat code</div>
+    <div class="d-counter"><em>08</em> / 14</div>
+    <div class="d-content">
+      <div class="d-label">tips · tricks · workflows</div>
+      <div class="d-title">from signal to<br>execution<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Now: what to actually do with this week's signal</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Practical workflows you can test immediately</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Tools, setups, and playbooks that compound</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Cheat Code - AI for GTM -->
+  <div class="d-slide no-img" data-slide="8">
+    <div class="d-badge">the cheat code</div>
+    <div class="d-counter"><em>09</em> / 14</div>
+    <div class="d-content" style="max-width:1120px">
+      <div class="d-label">ai for gtm engineering</div>
+      <div class="d-title">operating system<br>for growth teams<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>GTM workflows are becoming composable systems, not one-off prompts</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Distribution + data plumbing matter more than model novelty for ROI</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Teams shipping weekly automations build a compounding execution edge</div>
+      </div>
+      <div class="d-twitter-grid">
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026303611555201217" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026303611555201217">Tweet</a></blockquote></div>
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026421911538762176" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026421911538762176">Tweet</a></blockquote></div>
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026432007815733423" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026432007815733423">Tweet</a></blockquote></div>
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/boringlocalseo/status/2025616604512604454" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/boringlocalseo/status/2025616604512604454">Tweet</a></blockquote></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: Cheat Code - Polymarket -->
+  <div class="d-slide no-img" data-slide="9">
+    <div class="d-badge">the cheat code</div>
+    <div class="d-counter"><em>10</em> / 14</div>
+    <div class="d-content" style="max-width:1120px">
+      <div class="d-label">polymarket data dump + cli</div>
+      <div class="d-title">from headlines to<br>structured edge<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Open order-book data lowers the barrier to strategy development</div>
+        <div class="d-bullet"><div class="d-bdot"></div>The CLI makes ingestion, backtesting, and iteration repeatable</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Execution quality and risk management still decide outcomes</div>
+      </div>
+      <div class="d-twitter-grid">
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/martkiro/status/2026327582627545548" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/martkiro/status/2026327582627545548">Tweet</a></blockquote></div>
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/SuhailKakar/status/2026305257257775524" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/SuhailKakar/status/2026305257257775524">Tweet</a></blockquote></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: Cheat Code - Skills -->
+  <div class="d-slide no-img" data-slide="10">
+    <div class="d-badge">the cheat code</div>
+    <div class="d-counter"><em>11</em> / 14</div>
+    <div class="d-content" style="max-width:1120px">
+      <div class="d-label">skills vs playbooks vs claude.md</div>
+      <div class="d-title">turn prompting into<br>team infrastructure<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Skills capture reusable capabilities, playbooks capture sequences</div>
+        <div class="d-bullet"><div class="d-bdot"></div>CLAUDE.md encodes defaults so sessions start with the right context</div>
+        <div class="d-bullet"><div class="d-bdot"></div>The best teams version these assets like code</div>
+      </div>
+      <div class="d-twitter-grid one">
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/DeFiMinty/status/2026768839657029810" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/DeFiMinty/status/2026768839657029810">Tweet</a></blockquote></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: AI Stack -->
+  <div class="d-slide no-img" data-slide="11">
     <div class="d-badge">ai stack</div>
-    <div class="d-counter"><em>07</em> / 09</div>
+    <div class="d-counter"><em>12</em> / 14</div>
     <div class="d-content" style="max-width:1100px">
       <div class="d-label">what we're actually using</div>
       <div class="d-title">our stack<em>.</em></div>
@@ -629,22 +751,22 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
         </div>
         <div class="d-stack-col">
           <div class="d-stack-name">grant</div>
-          <div class="d-stack-role">co-host</div>
+          <div class="d-stack-role">founder</div>
           <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
         </div>
         <div class="d-stack-col">
           <div class="d-stack-name">563</div>
-          <div class="d-stack-role">co-host</div>
+          <div class="d-stack-role">head of research</div>
           <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 8: Over/Under -->
-  <div class="d-slide no-img" data-slide="7">
+  <!-- SLIDE 13: Over/Under -->
+  <div class="d-slide no-img" data-slide="12">
     <div class="d-badge">overrated vs underrated</div>
-    <div class="d-counter"><em>08</em> / 09</div>
+    <div class="d-counter"><em>13</em> / 14</div>
     <div class="d-content" style="max-width:1000px">
       <div class="d-label">hot takes</div>
       <div class="d-title">over vs<br>under<em>.</em></div>
@@ -666,10 +788,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 9: Wrap -->
-  <div class="d-slide no-img" data-slide="8">
+  <!-- SLIDE 14: Wrap -->
+  <div class="d-slide no-img" data-slide="13">
     <div class="d-badge">wrap up</div>
-    <div class="d-counter"><em>09</em> / 09</div>
+    <div class="d-counter"><em>14</em> / 14</div>
     <div class="d-content">
       <div class="d-label">every friday · 10am est · blocmates.</div>
       <div class="d-title">tap in<em>.</em></div>
@@ -694,6 +816,11 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <button class="dot" onclick="goSlide(6)"></button>
   <button class="dot" onclick="goSlide(7)"></button>
   <button class="dot" onclick="goSlide(8)"></button>
+  <button class="dot" onclick="goSlide(9)"></button>
+  <button class="dot" onclick="goSlide(10)"></button>
+  <button class="dot" onclick="goSlide(11)"></button>
+  <button class="dot" onclick="goSlide(12)"></button>
+  <button class="dot" onclick="goSlide(13)"></button>
 </div>
 
 </div><!-- end main -->
@@ -709,9 +836,12 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 const imgs = {};
 const links = {};
 const defaultImages = {
+  introVisual: '/app/genesis/images/PNG%20image%205.png',
   opportunity: '/app/genesis/images/PNG%20image.png',
   anthropic: '/app/genesis/images/PNG%20image%202.png',
   nvidia: '/app/genesis/images/PNG%20image%203.png',
+  nvidia2: '/app/genesis/images/PNG%20image%206.png',
+  zillow: '/app/genesis/images/PNG%20image%207.png',
   citrini: '/app/genesis/images/PNG%20image%204.png'
 };
 
@@ -726,6 +856,7 @@ function setMode(m) {
   document.getElementById('displayBtn').classList.toggle('active', m === 'display');
   document.getElementById('editBtn').style.display = m === 'notes' ? '' : 'none';
   document.getElementById('editPill').style.display = (m === 'notes' && editOn) ? 'flex' : 'none';
+  if (m === 'display') renderTwitterEmbeds();
 }
 
 // ── Edit ──
@@ -752,11 +883,6 @@ ns.addEventListener('scroll', () => {
   sIds.forEach(id => { const el = document.getElementById(id); if (el && ns.scrollTop >= el.offsetTop - 100) cur = id; });
   document.querySelectorAll('.nav-it').forEach(it => it.classList.toggle('active', it.dataset.s === cur));
 });
-
-// ── Timer ──
-let tR=false,tS=0,tI;
-function toggleTimer(){if(tR){clearInterval(tI);tR=false;document.getElementById('tb').textContent='resume';}else{tI=setInterval(()=>{tS++;document.getElementById('tv').textContent=String(Math.floor(tS/60)).padStart(2,'0')+':'+String(tS%60).padStart(2,'0');},1000);tR=true;document.getElementById('tb').textContent='pause';}}
-function resetTimer(){clearInterval(tI);tR=false;tS=0;document.getElementById('tv').textContent='00:00';document.getElementById('tb').textContent='start';}
 
 // ── Images ──
 function loadImg(input, key) {
@@ -829,7 +955,7 @@ function updateLink(key, val) {
 // ── Display scroll / dots ──
 const dp = document.getElementById('displayPanel');
 const dots = document.querySelectorAll('.dot');
-const totalSlides = 9;
+const totalSlides = 14;
 let curSlide = 0;
 
 function goSlide(i) {
@@ -871,6 +997,18 @@ function closeLB() {
   document.getElementById('lbImg').src = '';
 }
 
+function renderTwitterEmbeds() {
+  const panel = document.getElementById('displayPanel');
+  if (window.twttr?.widgets?.load) {
+    window.twttr.widgets.load(panel);
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.tweet-wrap').forEach(wrap => {
+      wrap.classList.toggle('embedded', Boolean(wrap.querySelector('iframe')));
+    });
+  }, 1200);
+}
+
 // ── Drag to reorder (Notes) ──
 let dragSrc = null;
 function dragStart(e, id) { dragSrc = id; e.dataTransfer.effectAllowed = 'move'; }
@@ -891,6 +1029,8 @@ function drop(e, targetId) {
 }
 
 applyDefaultImages();
+renderTwitterEmbeds();
 </script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8" onload="renderTwitterEmbeds()"></script>
 </body>
 </html>
