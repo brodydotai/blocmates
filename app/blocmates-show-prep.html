@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>blocmates. — genesis ep. 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #1f1f1f;
+  --navy: #253f58;
+  --red: #aa4946;
+  --gold: #e6a93e;
+  --sage: #80a76a;
+  --cream: #ede6dd;
+  --charcoal: #444342;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',sans-serif; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+
+/* ════════════════════════════
+   TOPBAR
+════════════════════════════ */
+.topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:11px 22px; border-bottom:1px solid rgba(237,230,221,0.08);
+  flex-shrink:0; z-index:100; background:var(--black);
+}
+.logo { font-weight:700; font-size:19px; letter-spacing:-0.5px; }
+.logo em { color:var(--red); font-style:normal; }
+.ep-label { font-size:11px; color:rgba(237,230,221,0.28); font-weight:500; margin-left:12px; }
+
+.mode-toggle { display:flex; background:rgba(237,230,221,0.06); border-radius:8px; padding:3px; gap:2px; }
+.mode-btn { padding:6px 20px; border-radius:5px; border:none; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; transition:all 0.18s; background:transparent; color:rgba(237,230,221,0.35); }
+.mode-btn.active { background:var(--navy); color:var(--cream); }
+
+.topbar-right { display:flex; align-items:center; gap:10px; }
+.timer { display:flex; align-items:center; gap:7px; background:rgba(237,230,221,0.05); border-radius:6px; padding:6px 13px; }
+.tv { font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; min-width:42px; }
+.tbtn { background:none; border:none; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(237,230,221,0.3); transition:color 0.15s; }
+.tbtn:hover { color:var(--cream); }
+.pill { display:none; align-items:center; gap:5px; background:rgba(128,167,106,0.15); border:1px solid rgba(128,167,106,0.3); border-radius:20px; padding:4px 11px; font-size:12px; color:var(--sage); font-weight:600; }
+.pill-dot { width:6px; height:6px; border-radius:50%; background:var(--sage); }
+.gbtn { padding:6px 15px; border-radius:6px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; cursor:pointer; border:none; transition:all 0.18s; background:rgba(237,230,221,0.07); color:var(--cream); }
+.gbtn:hover { background:rgba(237,230,221,0.13); }
+.gbtn.on { background:rgba(128,167,106,0.2); color:var(--sage); }
+
+/* ════════════════════════════
+   MAIN WRAPPER
+════════════════════════════ */
+.main { display:flex; flex:1; overflow:hidden; position:relative; }
+
+/* ════════════════════════════
+   NOTES MODE
+════════════════════════════ */
+#notesPanel { display:flex; flex:1; overflow:hidden; }
+#notesPanel.hidden { display:none; }
+
+.sidebar {
+  width:220px; border-right:1px solid rgba(237,230,221,0.07);
+  padding:20px 0; overflow-y:auto; flex-shrink:0;
+  background:rgba(0,0,0,0.15);
+}
+.sb-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:rgba(237,230,221,0.18); padding:0 16px; margin-bottom:8px; }
+.nav-it { display:flex; align-items:center; gap:9px; padding:9px 16px; cursor:pointer; font-size:13px; font-weight:500; color:rgba(237,230,221,0.38); border-left:2px solid transparent; transition:all 0.15s; }
+.nav-it:hover { color:var(--cream); background:rgba(237,230,221,0.04); }
+.nav-it.active { color:var(--cream); border-left-color:var(--red); background:rgba(170,73,70,0.07); }
+.nav-n { font-size:10px; font-weight:700; color:var(--red); min-width:16px; }
+.nav-div { height:1px; background:rgba(237,230,221,0.06); margin:12px 16px; }
+.t-row { display:flex; justify-content:space-between; font-size:12px; color:rgba(237,230,221,0.2); padding:2px 0; }
+.t-val { color:rgba(237,230,221,0.38); }
+.t-tot { color:var(--red); font-weight:700; }
+
+/* Notes scroll area */
+.notes-scroll { flex:1; overflow-y:auto; padding:36px 44px; scroll-behavior:smooth; }
+
+/* Section block */
+.n-section {
+  margin-bottom:52px; scroll-margin-top:36px;
+  border:1px solid rgba(237,230,221,0.06); border-radius:12px;
+  padding:20px 24px; background:rgba(237,230,221,0.015);
+  position:relative; transition:border-color 0.2s;
+}
+.n-section:hover { border-color:rgba(237,230,221,0.1); }
+.n-section.drag-over { border-color:var(--red); background:rgba(170,73,70,0.05); }
+
+.n-sec-head { display:flex; align-items:center; gap:10px; margin-bottom:18px; cursor:grab; }
+.n-sec-head:active { cursor:grabbing; }
+.drag-handle { font-size:14px; color:rgba(237,230,221,0.2); user-select:none; }
+.drag-handle:hover { color:rgba(237,230,221,0.5); }
+.n-sec-num { font-size:11px; font-weight:700; color:var(--red); }
+.n-sec-title { font-size:18px; font-weight:700; }
+.n-sec-line { flex:1; height:1px; background:rgba(237,230,221,0.07); }
+.n-sec-time { font-size:11px; color:rgba(237,230,221,0.2); font-weight:600; }
+
+/* Notes editable blocks */
+.n-block { margin-bottom:12px; }
+.n-block-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(237,230,221,0.22); margin-bottom:5px; }
+.n-editable { font-size:14px; color:rgba(237,230,221,0.6); line-height:1.75; outline:none; border-radius:4px; min-height:20px; }
+.n-editable[contenteditable=true]:hover { background:rgba(237,230,221,0.03); }
+.n-editable[contenteditable=true]:focus { color:var(--cream); background:rgba(237,230,221,0.04); padding:4px; margin:-4px; }
+
+/* Notes cards */
+.n-card { background:rgba(237,230,221,0.025); border:1px solid rgba(237,230,221,0.07); border-radius:8px; padding:16px 20px; margin-bottom:10px; }
+.n-card-title { font-size:14px; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.tag { font-size:10px; font-weight:700; text-transform:uppercase; padding:2px 7px; border-radius:3px; }
+.ts { color:var(--red); background:rgba(170,73,70,0.12); }
+.tt { color:var(--sage); background:rgba(128,167,106,0.12); }
+.tw { color:var(--gold); background:rgba(230,169,62,0.12); }
+
+/* Image slots in notes */
+.n-img-slot { margin-top:10px; border:2px dashed rgba(237,230,221,0.1); border-radius:8px; transition:border-color 0.2s; }
+.n-img-slot:hover { border-color:rgba(237,230,221,0.22); }
+.n-img-slot.filled { border:none; }
+.n-upload-label { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:20px; cursor:pointer; color:rgba(237,230,221,0.25); font-size:13px; font-weight:600; transition:color 0.15s; }
+.n-upload-label:hover { color:rgba(237,230,221,0.5); }
+.n-upload-label .ico { font-size:22px; }
+.n-upload-label .hint { font-size:11px; color:rgba(237,230,221,0.16); }
+.n-img-slot input[type=file] { display:none; }
+.n-img-preview { position:relative; }
+.n-img-preview img { width:100%; border-radius:8px; display:block; cursor:zoom-in; }
+.n-img-rm { position:absolute; top:8px; right:8px; background:rgba(170,73,70,0.9); color:white; border:none; border-radius:4px; padding:4px 9px; font-size:11px; font-weight:700; cursor:pointer; font-family:'Space Grotesk',sans-serif; opacity:0; transition:opacity 0.15s; }
+.n-img-preview:hover .n-img-rm { opacity:1; }
+
+/* Link input */
+.n-link-area { margin-top:10px; }
+.n-link-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(237,230,221,0.2); margin-bottom:5px; }
+.n-link-inp { width:100%; background:rgba(237,230,221,0.05); border:1px solid rgba(237,230,221,0.09); border-radius:6px; padding:7px 11px; color:var(--cream); font-family:'Space Grotesk',sans-serif; font-size:13px; outline:none; }
+.n-link-inp:focus { border-color:rgba(237,230,221,0.18); }
+.n-link-inp::placeholder { color:rgba(237,230,221,0.18); }
+
+/* Grid helpers */
+.n-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.n-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.n-full { grid-column:1/-1; }
+
+.or-pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.or-box { border-radius:8px; padding:16px; }
+.or-box.ov { background:rgba(170,73,70,0.07); border:1px solid rgba(170,73,70,0.16); }
+.or-box.un { background:rgba(128,167,106,0.07); border:1px solid rgba(128,167,106,0.16); }
+.or-box-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+.or-box.ov .or-box-title { color:var(--red); }
+.or-box.un .or-box-title { color:var(--sage); }
+.or-item { font-size:13px; color:rgba(237,230,221,0.6); line-height:1.6; display:flex; gap:8px; margin-bottom:6px; }
+.or-dash-ov { color:var(--red); font-weight:700; }
+.or-dash-un { color:var(--sage); font-weight:700; }
+
+.try-box { background:rgba(230,169,62,0.06); border:1px solid rgba(230,169,62,0.13); border-radius:8px; padding:14px 18px; }
+.try-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--gold); margin-bottom:8px; }
+.try-chips { display:flex; flex-wrap:wrap; gap:7px; }
+.try-chip { font-size:12px; font-weight:600; padding:5px 12px; border-radius:20px; background:rgba(230,169,62,0.1); color:var(--gold); border:1px solid rgba(230,169,62,0.18); }
+
+.wu-list { display:flex; flex-direction:column; gap:8px; }
+.wu-item { display:flex; align-items:center; gap:12px; padding:12px 16px; background:rgba(237,230,221,0.025); border:1px solid rgba(237,230,221,0.07); border-radius:7px; font-size:14px; color:rgba(237,230,221,0.6); outline:none; }
+.wu-n { font-size:11px; font-weight:700; color:var(--red); min-width:18px; }
+
+/* ════════════════════════════
+   DISPLAY MODE — FULL VIEWPORT
+════════════════════════════ */
+#displayPanel {
+  display:none; flex:1; position:relative;
+  overflow-y:scroll; scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+}
+#displayPanel.active { display:block; }
+
+/* Nav dots */
+.dot-nav {
+  position:fixed; right:20px; top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:8px; z-index:200;
+  opacity:0; transition:opacity 0.3s;
+}
+#displayPanel.active ~ .dot-nav,
+.dot-nav.show { opacity:1; }
+.dot { width:8px; height:8px; border-radius:50%; background:rgba(237,230,221,0.2); cursor:pointer; transition:all 0.2s; border:none; }
+.dot.active, .dot:hover { background:var(--red); transform:scale(1.3); }
+
+/* Slide */
+.d-slide {
+  height:100vh; scroll-snap-align:start;
+  display:grid; position:relative; overflow:hidden;
+}
+/* With image: top=content, bottom=image */
+.d-slide.has-img { grid-template-rows:44vh 56vh; }
+.d-slide.has-img .d-content { order:0; border-top:none; border-bottom:1px solid rgba(237,230,221,0.07); }
+.d-slide.has-img .d-img-area { order:1; }
+/* No image: single full content */
+.d-slide.no-img { grid-template-rows:1fr; align-items:center; justify-items:center; }
+
+/* Slide counter */
+.d-counter {
+  position:absolute; top:20px; right:28px;
+  font-size:13px; font-weight:700; color:rgba(237,230,221,0.25);
+  letter-spacing:0.5px;
+}
+.d-counter em { color:var(--red); font-style:normal; }
+
+/* Section badge */
+.d-badge {
+  position:absolute; top:20px; left:28px;
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px;
+  color:rgba(237,230,221,0.3);
+}
+
+/* Image area */
+.d-img-area {
+  position:relative; overflow:hidden; background:rgba(37,63,88,0.15);
+  cursor:zoom-in;
+}
+.d-img-area img { width:100%; height:100%; object-fit:contain; transition:transform 0.3s; padding:20px; }
+.d-img-area:hover img { transform:scale(1.02); }
+.d-img-placeholder {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:8px;
+  color:rgba(237,230,221,0.12); font-size:13px; font-weight:600;
+}
+.d-img-placeholder .p-ico { font-size:36px; opacity:0.4; }
+.d-img-placeholder .p-hint { font-size:11px; color:rgba(237,230,221,0.08); }
+
+/* Content area */
+.d-content {
+  padding:28px 72px 28px 72px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.d-slide.no-img .d-content {
+  padding:60px 100px; text-align:left; max-width:1000px; width:100%;
+}
+
+.d-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--red); margin-bottom:10px; }
+.d-title { font-size:44px; font-weight:700; letter-spacing:-1.5px; line-height:1.05; color:var(--cream); margin-bottom:18px; }
+.d-title em { color:var(--red); font-style:normal; }
+.d-slide.no-img .d-title { font-size:56px; margin-bottom:24px; }
+
+.d-bullets { display:flex; flex-direction:column; gap:10px; }
+.d-bullet { display:flex; align-items:flex-start; gap:12px; font-size:17px; color:rgba(237,230,221,0.72); line-height:1.55; }
+.d-slide.no-img .d-bullet { font-size:20px; }
+.d-bdot { width:7px; height:7px; border-radius:50%; background:var(--red); margin-top:8px; flex-shrink:0; }
+
+/* Special: link preview in display */
+.d-link { display:none; margin-top:12px; }
+.d-link.show { display:flex; align-items:center; gap:8px; }
+.d-link a { font-size:13px; color:rgba(93,155,213,0.8); font-weight:500; text-decoration:none; word-break:break-all; }
+.d-link a:hover { color:#5b9bd5; }
+.d-link-ico { font-size:14px; }
+
+/* Stack layout for display */
+.d-stack-grid { display:flex; gap:24px; margin-top:4px; }
+.d-stack-col { flex:1; }
+.d-stack-name { font-size:20px; font-weight:700; margin-bottom:2px; }
+.d-stack-role { font-size:11px; color:var(--red); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; }
+.d-stack-item { font-size:16px; color:rgba(237,230,221,0.65); line-height:1.6; display:flex; gap:10px; margin-bottom:8px; }
+
+/* Or display */
+.d-or-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
+.d-or-col {}
+.d-or-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+.d-or-col.ov .d-or-label { color:var(--red); }
+.d-or-col.un .d-or-label { color:var(--sage); }
+.d-or-item { font-size:18px; color:rgba(237,230,221,0.7); line-height:1.55; display:flex; gap:10px; margin-bottom:10px; }
+
+/* ── LIGHTBOX ── */
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:40px; cursor:zoom-out; }
+.lightbox.open { display:flex; }
+.lb-img { max-width:100%; max-height:90vh; object-fit:contain; border-radius:8px; }
+.lb-x { position:fixed; top:18px; right:22px; background:rgba(237,230,221,0.1); border:none; color:var(--cream); font-size:18px; width:38px; height:38px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.lb-x:hover { background:rgba(237,230,221,0.18); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-thumb { background:rgba(237,230,221,0.08); border-radius:2px; }
+</style>
+</head>
+<body>
+
+<!-- ════════ TOPBAR ════════ -->
+<div class="topbar">
+  <div style="display:flex;align-items:center">
+    <div class="logo">blocmates<em>.</em></div>
+    <div class="ep-label">genesis — episode 01</div>
+  </div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="notesBtn" onclick="setMode('notes')">📝 Notes</button>
+    <button class="mode-btn" id="displayBtn" onclick="setMode('display')">📺 Display</button>
+  </div>
+  <div class="topbar-right">
+    <div class="timer">
+      <span style="font-size:12px;opacity:.35">⏱</span>
+      <span class="tv" id="tv">00:00</span>
+      <button class="tbtn" id="tb" onclick="toggleTimer()">start</button>
+      <button class="tbtn" onclick="resetTimer()" style="opacity:.3">reset</button>
+    </div>
+    <div class="pill" id="editPill"><div class="pill-dot"></div>editing</div>
+    <button class="gbtn" id="editBtn" onclick="toggleEdit()">✏ edit</button>
+  </div>
+</div>
+
+<!-- ════════ MAIN ════════ -->
+<div class="main">
+
+<!-- ════════════════════════════
+     NOTES PANEL
+════════════════════════════ -->
+<div id="notesPanel">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sb-lbl">segments</div>
+    <div class="nav-it active" data-s="n-intro" onclick="navTo('n-intro',this)"><span class="nav-n">01</span>introduction</div>
+    <div class="nav-it" data-s="n-events" onclick="navTo('n-events',this)"><span class="nav-n">02</span>signal events</div>
+    <div class="nav-it" data-s="n-cheatcode" onclick="navTo('n-cheatcode',this)"><span class="nav-n">03</span>the cheat code</div>
+    <div class="nav-it" data-s="n-stack" onclick="navTo('n-stack',this)"><span class="nav-n">04</span>ai stack</div>
+    <div class="nav-it" data-s="n-overrated" onclick="navTo('n-overrated',this)"><span class="nav-n">05</span>over / underrated</div>
+    <div class="nav-it" data-s="n-wrapup" onclick="navTo('n-wrapup',this)"><span class="nav-n">06</span>wrap up</div>
+    <div class="nav-div"></div>
+    <div class="sb-lbl">timing</div>
+    <div style="padding:0 16px">
+      <div class="t-row"><span>intro</span><span class="t-val">~15 min</span></div>
+      <div class="t-row"><span>events</span><span class="t-val">~15 min</span></div>
+      <div class="t-row"><span>cheat code</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>ai stack</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>over/under</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>wrap up</span><span class="t-val">~5 min</span></div>
+      <div class="nav-div"></div>
+      <div class="t-row"><span>total</span><span class="t-tot">~65 min</span></div>
+    </div>
+  </div>
+
+  <!-- Notes scroll -->
+  <div class="notes-scroll" id="notesScroll">
+
+    <!-- 01 INTRO -->
+    <div class="n-section" id="n-intro" draggable="true" ondragstart="dragStart(event,'n-intro')" ondragover="dragOver(event)" ondrop="drop(event,'n-intro')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">01</span>
+        <span class="n-sec-title">introduction</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~15 min</span>
+      </div>
+      <div class="n-grid-2">
+        <div class="n-card">
+          <div class="n-block-label">premise of the show</div>
+          <div class="n-editable" contenteditable="false">AI is having its 2020–2021 crypto moment. Most AI content is either too technical or pure surface-level hype. Nobody is making personality-driven, opinionated, casual AI content for people actually in the arena. That's the gap. That's this show.</div>
+        </div>
+        <div class="n-card">
+          <div class="n-block-label">who we are</div>
+          <div class="n-editable" contenteditable="false">Brief intros from Brody, Grant, and 563. Not formal bios — how each of you got pulled into AI and why you care. The dynamic between the three of you IS the show.</div>
+        </div>
+        <div class="n-card n-full">
+          <div class="n-block-label">the opportunity for listeners</div>
+          <div class="n-editable" contenteditable="false">There's never been a better time to build, experiment, and grow. You are early to the movement. We help you figure out where to look.</div>
+          <div class="n-img-slot" id="ns-opportunity">
+            <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">opportunity for listeners visual</span><input type="file" accept="image/*" onchange="loadImg(this,'opportunity')"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 EVENTS -->
+    <div class="n-section" id="n-events" draggable="true" ondragstart="dragStart(event,'n-events')" ondragover="dragOver(event)" ondrop="drop(event,'n-events')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">02</span>
+        <span class="n-sec-title">highest signal events</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~15 min</span>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">Anthropic gets distilled by Chinese labs <span class="tag ts">🔴 signal</span></div>
+        <div class="n-editable" contenteditable="false">DeepSeek, Moonshot AI, and MiniMax — 16 million Claude queries, 24,000 fraudulent accounts. Anthropic caught them and went public. Open vs. closed model debate. Is this a problem or just how AI evolves?</div>
+        <div class="n-img-slot" id="ns-anthropic">
+          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">distillation campaign infographic</span><input type="file" accept="image/*" onchange="loadImg(this,'anthropic')"></label>
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" id="nl-anthropic" type="url" placeholder="paste article URL..." oninput="updateLink('anthropic',this.value)">
+        </div>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">Nvidia beats earnings — party is still going <span class="tag ts">🔴 signal</span></div>
+        <div class="n-editable" contenteditable="false">$68.1B revenue, up 73% YoY. Data center up 75% to $62.3B. Q1 guidance $78B. The AI infrastructure trade is not slowing down.</div>
+        <div class="n-img-slot" id="ns-nvidia">
+          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">nvidia earnings chart</span><input type="file" accept="image/*" onchange="loadImg(this,'nvidia')"></label>
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" id="nl-nvidia" type="url" placeholder="paste article URL..." oninput="updateLink('nvidia',this.value)">
+        </div>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">The Citrini doom post <span class="tag ts">🔴 signal</span></div>
+        <div class="n-editable" contenteditable="false">Fictional dispatch from 2028: mass white-collar layoffs, "human intelligence displacement spiral," 38% S&P crash. IGV 52-week low, IBM worst single-day drop in 25 years. Recovered next day. Fear-mongering or legitimate thesis?</div>
+        <div class="n-img-slot" id="ns-citrini">
+          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">citrini displacement diagram</span><input type="file" accept="image/*" onchange="loadImg(this,'citrini')"></label>
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" id="nl-citrini" type="url" placeholder="paste article URL..." oninput="updateLink('citrini',this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 CHEAT CODE -->
+    <div class="n-section" id="n-cheatcode" draggable="true" ondragstart="dragStart(event,'n-cheatcode')" ondragover="dragOver(event)" ondrop="drop(event,'n-cheatcode')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">03</span>
+        <span class="n-sec-title">the cheat code</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~10 min</span>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">AI for GTM engineering <span class="tag tw">workflow</span></div>
+        <div class="n-editable" contenteditable="false">Very applicable to people's day jobs. Cody Schneider is a good follow. Facebook ad generator, Klaviyo + GA dashboard integration, and SEO for getting recommended in AI models — what are we calling this?</div>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">Polymarket order book data dump <span class="tag tt">tool</span></div>
+        <div class="n-editable" contenteditable="false">Huge dump of Polymarket order book data is public. Starting point for a trading bot. Polymarket also released a CLI — barrier to building on prediction markets just dropped.</div>
+      </div>
+      <div class="n-card">
+        <div class="n-card-title">Skills, playbooks, CLAUDE.md <span class="tag tw">workflow</span></div>
+        <div class="n-editable" contenteditable="false">The meta layer most people skip. Best practices? How do you structure your CLAUDE.md, what goes in your skills, how does a good playbook look in practice?</div>
+      </div>
+    </div>
+
+    <!-- 04 STACK -->
+    <div class="n-section" id="n-stack" draggable="true" ondragstart="dragStart(event,'n-stack')" ondragover="dragOver(event)" ondrop="drop(event,'n-stack')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">04</span>
+        <span class="n-sec-title">ai stack breakdown</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~10 min</span>
+      </div>
+      <div class="n-grid-3">
+        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">brody</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">host</div>
+          <div class="n-editable" contenteditable="false" style="font-size:13px">• Claude Opus 4.6 — architecture, project lead, research<br>• Codex 5.3 — staff engineer<br>• Cursor / Cowork — building<br>• Gemini — advanced searches<br>• Wispr — voice dictation</div>
+        </div>
+        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">grant</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">co-host</div>
+          <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
+        </div>
+        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">563</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">co-host</div>
+          <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 OVER/UNDER -->
+    <div class="n-section" id="n-overrated" draggable="true" ondragstart="dragStart(event,'n-overrated')" ondragover="dragOver(event)" ondrop="drop(event,'n-overrated')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">05</span>
+        <span class="n-sec-title">overrated vs underrated</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~10 min</span>
+      </div>
+      <div class="or-pair">
+        <div class="or-box ov"><div class="or-box-title">🔴 overrated</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>All video generation models + platforms</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>Open Claw</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>Doomerism</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>All Gemini plugins</div>
+        </div>
+        <div class="or-box un"><div class="or-box-title">🟢 underrated</div>
+          <div class="or-item"><span class="or-dash-un">—</span>Perplexity investment research tool</div>
+          <div class="or-item"><span class="or-dash-un">—</span>Optimism as competitive advantage</div>
+          <div class="or-item"><span class="or-dash-un">—</span>Belief in yourself as an AI-era skill</div>
+        </div>
+      </div>
+      <div class="try-box">
+        <div class="try-title">📋 to try — first impressions on air</div>
+        <div class="try-chips">
+          <span class="try-chip">Claude plugins</span>
+          <span class="try-chip">Nous Hermes Agent</span>
+          <span class="try-chip">QuiverAI</span>
+          <span class="try-chip">Notion Agents</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 WRAPUP -->
+    <div class="n-section" id="n-wrapup" draggable="true" ondragstart="dragStart(event,'n-wrapup')" ondragover="dragOver(event)" ondrop="drop(event,'n-wrapup')" ondragleave="dragLeave(event)">
+      <div class="n-sec-head">
+        <span class="drag-handle">⠿</span>
+        <span class="n-sec-num">06</span>
+        <span class="n-sec-title">wrap up</span>
+        <div class="n-sec-line"></div>
+        <span class="n-sec-time">~5 min</span>
+      </div>
+      <div class="wu-list">
+        <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>Tease what's coming next week</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>Where to find the show</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Tap in every Friday at 10am EST — only at blocmates.</div>
+      </div>
+    </div>
+
+  </div><!-- end notes-scroll -->
+</div><!-- end notesPanel -->
+
+<!-- ════════════════════════════
+     DISPLAY PANEL — SNAP SCROLL
+════════════════════════════ -->
+<div id="displayPanel">
+
+  <!-- SLIDE 1: Cover -->
+  <div class="d-slide no-img" data-slide="0">
+    <div class="d-badge">blocmates.</div>
+    <div class="d-counter"><em>01</em> / 09</div>
+    <div class="d-content">
+      <div class="d-label">genesis · episode 01</div>
+      <div class="d-title">the ai show<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>AI is having its 2020–2021 crypto moment</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Personality-driven · opinionated · no hype</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Brody · Grant · 563 — every Friday 10am EST</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Opportunity (image anchor) -->
+  <div class="d-slide has-img" data-slide="1">
+    <div class="d-badge">introduction</div>
+    <div class="d-counter"><em>02</em> / 09</div>
+    <div class="d-img-area" id="di-opportunity" onclick="openLB('opportunity')">
+      <div class="d-img-placeholder" id="dip-opportunity"><div class="p-ico">🖼</div><div>opportunity for listeners visual</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-opportunity" src="" style="display:none">
+    </div>
+    <div class="d-content">
+      <div class="d-label">the opportunity</div>
+      <div class="d-title">you are early<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>84% of the world has never used AI</div>
+        <div class="d-bullet"><div class="d-bdot"></div>There's never been a better time to build, experiment, grow</div>
+        <div class="d-bullet"><div class="d-bdot"></div>We help you figure out where to look</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Anthropic -->
+  <div class="d-slide has-img" data-slide="2">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>03</em> / 09</div>
+    <div class="d-img-area" id="di-anthropic" onclick="openLB('anthropic')">
+      <div class="d-img-placeholder" id="dip-anthropic"><div class="p-ico">🖼</div><div>distillation campaign infographic</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-anthropic" src="" style="display:none">
+    </div>
+    <div class="d-content">
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">frontier<br>under attack<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>DeepSeek · Moonshot AI · MiniMax extracted Claude's capabilities</div>
+        <div class="d-bullet"><div class="d-bdot"></div>16M queries · 24K fraudulent accounts · industrial scale</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Problem or just how AI evolves?</div>
+      </div>
+      <div class="d-link" id="dl-anthropic"><span class="d-link-ico">🔗</span><a id="dla-anthropic" href="#" target="_blank"></a></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Nvidia -->
+  <div class="d-slide has-img" data-slide="3">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>04</em> / 09</div>
+    <div class="d-img-area" id="di-nvidia" onclick="openLB('nvidia')">
+      <div class="d-img-placeholder" id="dip-nvidia"><div class="p-ico">🖼</div><div>nvidia earnings chart</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-nvidia" src="" style="display:none">
+    </div>
+    <div class="d-content">
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">the party<br>continues<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>$68.1B revenue · up 73% YoY</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Data center up 75% to $62.3B · Q1 guide $78B</div>
+        <div class="d-bullet"><div class="d-bdot"></div>AI infrastructure trade is not slowing down</div>
+      </div>
+      <div class="d-link" id="dl-nvidia"><span class="d-link-ico">🔗</span><a id="dla-nvidia" href="#" target="_blank"></a></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Citrini -->
+  <div class="d-slide has-img" data-slide="4">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>05</em> / 09</div>
+    <div class="d-img-area" id="di-citrini" onclick="openLB('citrini')">
+      <div class="d-img-placeholder" id="dip-citrini"><div class="p-ico">🖼</div><div>citrini displacement diagram</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-citrini" src="" style="display:none">
+    </div>
+    <div class="d-content">
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">the doom<br>post<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Fictional 2028: mass layoffs · 38% S&P crash</div>
+        <div class="d-bullet"><div class="d-bdot"></div>IGV 52-week low · IBM worst day in 25 years</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Fear-mongering or legitimate thesis?</div>
+      </div>
+      <div class="d-link" id="dl-citrini"><span class="d-link-ico">🔗</span><a id="dla-citrini" href="#" target="_blank"></a></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Cheat Code -->
+  <div class="d-slide no-img" data-slide="5">
+    <div class="d-badge">the cheat code</div>
+    <div class="d-counter"><em>06</em> / 09</div>
+    <div class="d-content">
+      <div class="d-label">tips · tricks · workflows</div>
+      <div class="d-title">the cheat<br>code<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>AI for GTM engineering — applicable to your actual day job</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Polymarket order book data dump + CLI release</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Skills · playbooks · CLAUDE.md — the meta layer most skip</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: AI Stack -->
+  <div class="d-slide no-img" data-slide="6">
+    <div class="d-badge">ai stack</div>
+    <div class="d-counter"><em>07</em> / 09</div>
+    <div class="d-content" style="max-width:1100px">
+      <div class="d-label">what we're actually using</div>
+      <div class="d-title">our stack<em>.</em></div>
+      <div class="d-stack-grid">
+        <div class="d-stack-col">
+          <div class="d-stack-name">brody</div>
+          <div class="d-stack-role">host</div>
+          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Claude Opus 4.6</strong> — architecture · research</div></div>
+          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Codex 5.3</strong> — staff engineer</div></div>
+          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Cursor / Cowork</strong> — building</div></div>
+          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Gemini</strong> · <strong style="color:var(--cream)">Wispr</strong> — search · dictation</div></div>
+        </div>
+        <div class="d-stack-col">
+          <div class="d-stack-name">grant</div>
+          <div class="d-stack-role">co-host</div>
+          <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
+        </div>
+        <div class="d-stack-col">
+          <div class="d-stack-name">563</div>
+          <div class="d-stack-role">co-host</div>
+          <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: Over/Under -->
+  <div class="d-slide no-img" data-slide="7">
+    <div class="d-badge">overrated vs underrated</div>
+    <div class="d-counter"><em>08</em> / 09</div>
+    <div class="d-content" style="max-width:1000px">
+      <div class="d-label">hot takes</div>
+      <div class="d-title">over vs<br>under<em>.</em></div>
+      <div class="d-or-grid">
+        <div class="d-or-col ov">
+          <div class="d-or-label">🔴 overrated</div>
+          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Video gen models + platforms</div>
+          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Open Claw</div>
+          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Doomerism</div>
+          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Gemini plugins</div>
+        </div>
+        <div class="d-or-col un">
+          <div class="d-or-label">🟢 underrated</div>
+          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Perplexity investment research tool</div>
+          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Optimism as competitive advantage</div>
+          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Belief in yourself</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Wrap -->
+  <div class="d-slide no-img" data-slide="8">
+    <div class="d-badge">wrap up</div>
+    <div class="d-counter"><em>09</em> / 09</div>
+    <div class="d-content">
+      <div class="d-label">every friday · 10am est · blocmates.</div>
+      <div class="d-title">tap in<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Next week coming soon</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Find us at Blocmates</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Only at blocmates<em style="color:var(--red)">.</em></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end displayPanel -->
+
+<!-- Nav dots -->
+<div class="dot-nav" id="dotNav">
+  <button class="dot active" onclick="goSlide(0)"></button>
+  <button class="dot" onclick="goSlide(1)"></button>
+  <button class="dot" onclick="goSlide(2)"></button>
+  <button class="dot" onclick="goSlide(3)"></button>
+  <button class="dot" onclick="goSlide(4)"></button>
+  <button class="dot" onclick="goSlide(5)"></button>
+  <button class="dot" onclick="goSlide(6)"></button>
+  <button class="dot" onclick="goSlide(7)"></button>
+  <button class="dot" onclick="goSlide(8)"></button>
+</div>
+
+</div><!-- end main -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <button class="lb-x" onclick="closeLB()">✕</button>
+  <img class="lb-img" id="lbImg" src="">
+</div>
+
+<script>
+// ── Shared image store ──
+const imgs = {};
+const links = {};
+
+// ── Mode ──
+let mode = 'notes';
+function setMode(m) {
+  mode = m;
+  document.getElementById('notesPanel').classList.toggle('hidden', m !== 'notes');
+  document.getElementById('displayPanel').classList.toggle('active', m === 'display');
+  document.getElementById('dotNav').classList.toggle('show', m === 'display');
+  document.getElementById('notesBtn').classList.toggle('active', m === 'notes');
+  document.getElementById('displayBtn').classList.toggle('active', m === 'display');
+  document.getElementById('editBtn').style.display = m === 'notes' ? '' : 'none';
+  document.getElementById('editPill').style.display = (m === 'notes' && editOn) ? 'flex' : 'none';
+}
+
+// ── Edit ──
+let editOn = false;
+function toggleEdit() {
+  editOn = !editOn;
+  document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = editOn);
+  document.getElementById('editPill').style.display = editOn ? 'flex' : 'none';
+  const b = document.getElementById('editBtn');
+  b.textContent = editOn ? '✓ done' : '✏ edit';
+  b.classList.toggle('on', editOn);
+}
+
+// ── Notes nav ──
+function navTo(id, el) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav-it').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+const ns = document.getElementById('notesScroll');
+const sIds = ['n-intro','n-events','n-cheatcode','n-stack','n-overrated','n-wrapup'];
+ns.addEventListener('scroll', () => {
+  let cur = sIds[0];
+  sIds.forEach(id => { const el = document.getElementById(id); if (el && ns.scrollTop >= el.offsetTop - 100) cur = id; });
+  document.querySelectorAll('.nav-it').forEach(it => it.classList.toggle('active', it.dataset.s === cur));
+});
+
+// ── Timer ──
+let tR=false,tS=0,tI;
+function toggleTimer(){if(tR){clearInterval(tI);tR=false;document.getElementById('tb').textContent='resume';}else{tI=setInterval(()=>{tS++;document.getElementById('tv').textContent=String(Math.floor(tS/60)).padStart(2,'0')+':'+String(tS%60).padStart(2,'0');},1000);tR=true;document.getElementById('tb').textContent='pause';}}
+function resetTimer(){clearInterval(tI);tR=false;tS=0;document.getElementById('tv').textContent='00:00';document.getElementById('tb').textContent='start';}
+
+// ── Images ──
+function loadImg(input, key) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const src = e.target.result;
+    imgs[key] = src;
+    // Notes slot
+    const slot = document.getElementById('ns-' + key);
+    if (slot) {
+      slot.classList.add('filled');
+      slot.innerHTML = '<div class="n-img-preview"><img src="' + src + '" onclick="openLB(\'' + key + '\')"><button class="n-img-rm" onclick="removeImg(\'' + key + '\')">✕ remove</button></div>';
+    }
+    // Display panel image
+    const dImg = document.getElementById('dimg-' + key);
+    const dPh = document.getElementById('dip-' + key);
+    if (dImg) { dImg.src = src; dImg.style.display = 'block'; }
+    if (dPh) dPh.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImg(key) {
+  delete imgs[key];
+  const slot = document.getElementById('ns-' + key);
+  const hints = {opportunity:'opportunity for listeners visual',anthropic:'distillation campaign infographic',nvidia:'nvidia earnings chart',citrini:'citrini displacement diagram'};
+  if (slot) {
+    slot.classList.remove('filled');
+    slot.innerHTML = '<label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">'+(hints[key]||'')+'</span><input type="file" accept="image/*" onchange="loadImg(this,\''+key+'\')"></label>';
+  }
+  const dImg = document.getElementById('dimg-' + key);
+  const dPh = document.getElementById('dip-' + key);
+  if (dImg) { dImg.src = ''; dImg.style.display = 'none'; }
+  if (dPh) dPh.style.display = 'flex';
+}
+
+// ── Links ──
+function updateLink(key, val) {
+  links[key] = val;
+  const dl = document.getElementById('dl-' + key);
+  const da = document.getElementById('dla-' + key);
+  if (!dl || !da) return;
+  if (val && val.startsWith('http')) {
+    da.href = val; da.textContent = val;
+    dl.classList.add('show');
+  } else { dl.classList.remove('show'); }
+}
+
+// ── Display scroll / dots ──
+const dp = document.getElementById('displayPanel');
+const dots = document.querySelectorAll('.dot');
+const totalSlides = 9;
+let curSlide = 0;
+
+function goSlide(i) {
+  const slides = document.querySelectorAll('.d-slide');
+  if (slides[i]) { slides[i].scrollIntoView({behavior:'smooth'}); }
+}
+
+dp.addEventListener('scroll', () => {
+  const slides = document.querySelectorAll('.d-slide');
+  let best = 0, bestDist = Infinity;
+  slides.forEach((s, i) => {
+    const dist = Math.abs(s.getBoundingClientRect().top);
+    if (dist < bestDist) { bestDist = dist; best = i; }
+  });
+  if (best !== curSlide) {
+    curSlide = best;
+    dots.forEach((d,i) => d.classList.toggle('active', i === curSlide));
+  }
+});
+
+// Arrow keys for display
+document.addEventListener('keydown', e => {
+  if (mode === 'display') {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goSlide(Math.min(curSlide+1,totalSlides-1)); }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goSlide(Math.max(curSlide-1,0)); }
+  }
+  if (e.key === 'Escape') closeLB();
+});
+
+// ── Lightbox ──
+function openLB(key) {
+  const src = imgs[key];
+  if (!src) return;
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lbImg').src = '';
+}
+
+// ── Drag to reorder (Notes) ──
+let dragSrc = null;
+function dragStart(e, id) { dragSrc = id; e.dataTransfer.effectAllowed = 'move'; }
+function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function dragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function drop(e, targetId) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!dragSrc || dragSrc === targetId) return;
+  const src = document.getElementById(dragSrc);
+  const tgt = document.getElementById(targetId);
+  const parent = tgt.parentNode;
+  const srcIdx = [...parent.children].indexOf(src);
+  const tgtIdx = [...parent.children].indexOf(tgt);
+  if (srcIdx < tgtIdx) parent.insertBefore(src, tgt.nextSibling);
+  else parent.insertBefore(src, tgt);
+  dragSrc = null;
+}
+</script>
+</body>
+</html>
