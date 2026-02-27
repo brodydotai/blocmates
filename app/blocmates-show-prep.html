@@ -115,7 +115,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .n-upload-label .hint { font-size:11px; color:rgba(237,230,221,0.16); }
 .n-img-slot input[type=file] { display:none; }
 .n-img-preview { position:relative; }
-.n-img-preview img { width:100%; border-radius:8px; display:block; cursor:zoom-in; }
+.n-img-preview img { width:100%; border-radius:16px; display:block; cursor:zoom-in; }
 .n-img-rm { position:absolute; top:8px; right:8px; background:rgba(170,73,70,0.9); color:white; border:none; border-radius:4px; padding:4px 9px; font-size:11px; font-weight:700; cursor:pointer; font-family:'Space Grotesk',sans-serif; opacity:0; transition:opacity 0.15s; }
 .n-img-preview:hover .n-img-rm { opacity:1; }
 
@@ -207,12 +207,14 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-img-area {
   position:relative; overflow:hidden; background:rgba(37,63,88,0.15);
   cursor:zoom-in;
-  border-radius:16px;
+  border-radius:22px;
+  margin:14px 20px 22px;
+  padding:10px;
 }
-.d-img-area img { width:100%; height:100%; object-fit:contain; transition:transform 0.3s; padding:20px; border-radius:16px; background:rgba(10,10,10,0.45); box-shadow:0 0 0 1px rgba(237,230,221,0.08) inset; }
+.d-img-area img { width:100%; height:100%; object-fit:contain; transition:transform 0.3s; padding:0; border-radius:18px !important; background:rgba(10,10,10,0.2); box-shadow:0 0 0 1px rgba(237,230,221,0.12) inset; display:block; clip-path:inset(0 round 18px); }
 .d-img-area:hover img { transform:scale(1.02); }
-.d-img-area.dual { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:16px; cursor:default; }
-.d-img-area.dual img { padding:0; object-fit:cover; background:rgba(10,10,10,0.35); cursor:zoom-in; }
+.d-img-area.dual { display:grid; grid-template-columns:1fr 1fr; gap:14px; cursor:default; }
+.d-img-area.dual img { object-fit:cover; cursor:zoom-in; }
 .d-img-area.dual:hover img { transform:none; }
 .d-img-placeholder {
   width:100%; height:100%; display:flex; flex-direction:column;
@@ -243,6 +245,8 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-slide.transition-slide .d-content { width:100%; max-width:none; padding:28px 72px; text-align:left; }
 .d-img-area.zillow { display:flex; align-items:center; justify-content:center; }
 .d-img-area.zillow img { width:100%; height:auto; max-height:88%; max-width:76%; object-fit:contain; padding:0; }
+.d-img-area.openai-raise { display:flex; align-items:center; justify-content:center; }
+.d-img-area.openai-raise img { width:100%; height:auto; max-height:88%; max-width:58%; object-fit:contain; padding:0; }
 
 .d-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--red); margin-bottom:10px; }
 .d-title { font-size:44px; font-weight:700; letter-spacing:-1.5px; line-height:1.05; color:var(--cream); margin-bottom:18px; }
@@ -260,9 +264,12 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-link a { font-size:13px; color:rgba(93,155,213,0.8); font-weight:500; text-decoration:none; word-break:break-all; }
 .d-link a:hover { color:#5b9bd5; }
 .d-link-ico { font-size:14px; }
-.d-twitter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; align-items:start; }
-.d-twitter-grid.one { grid-template-columns:1fr; max-width:560px; }
+.d-twitter-grid { display:flex; flex-wrap:wrap; gap:14px; margin-top:16px; align-items:flex-start; justify-content:center; }
+.d-twitter-grid.one { justify-content:center; max-width:none; }
 .tweet-wrap { background:rgba(237,230,221,0.02); border:1px solid rgba(237,230,221,0.09); border-radius:12px; padding:8px; min-height:220px; }
+.d-twitter-grid .tweet-wrap { width:min(100%, 540px); }
+.d-slide.tweet-slide .d-content { width:100%; max-width:none !important; padding:60px 100px; text-align:left; }
+.d-slide.tweet-slide .d-twitter-grid { width:100%; margin-left:auto; margin-right:auto; justify-content:center; }
 .tweet-wrap blockquote.twitter-tweet { margin:0 !important; }
 .tweet-fallback { display:inline-block; margin:6px 0 10px; color:#5b9bd5; font-size:12px; text-decoration:none; }
 .tweet-fallback:hover { text-decoration:underline; }
@@ -277,7 +284,6 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 
 /* Or display */
 .d-or-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
-.d-or-col {}
 .d-or-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
 .d-or-col.ov .d-or-label { color:var(--red); }
 .d-or-col.un .d-or-label { color:var(--sage); }
@@ -286,7 +292,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 /* ── LIGHTBOX ── */
 .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:40px; cursor:zoom-out; }
 .lightbox.open { display:flex; }
-.lb-img { max-width:100%; max-height:90vh; object-fit:contain; border-radius:8px; }
+.lb-img { max-width:100%; max-height:90vh; object-fit:contain; border-radius:16px; }
 .lb-x { position:fixed; top:18px; right:22px; background:rgba(237,230,221,0.1); border:none; color:var(--cream); font-size:18px; width:38px; height:38px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 .lb-x:hover { background:rgba(237,230,221,0.18); }
 
@@ -524,10 +530,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- SLIDE 1: Cover -->
   <div class="d-slide intro-hero" data-slide="0">
     <div class="d-badge">blocmates.</div>
-    <div class="d-counter"><em>01</em> / 13</div>
+    <div class="d-counter"><em>01</em> / 16</div>
     <div class="d-content">
       <div class="d-label">genesis · episode 01</div>
-      <div class="d-title">the ai show<em>.</em></div>
+      <div class="d-title">the singularity show<em>.</em></div>
       <div class="d-bullets">
         <div class="d-bullet"><div class="d-bdot"></div>AI is having its 2020–2021 crypto moment</div>
         <div class="d-bullet"><div class="d-bdot"></div>Clear takes from builders in the arena, not recycled hype</div>
@@ -558,7 +564,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- SLIDE 2: Intro Visual -->
   <div class="d-slide image-only" data-slide="1">
     <div class="d-badge">introduction</div>
-    <div class="d-counter"><em>02</em> / 13</div>
+    <div class="d-counter"><em>02</em> / 16</div>
     <div class="d-img-area" id="di-introVisual" onclick="openLB('introVisual')">
       <div class="d-img-placeholder" id="dip-introVisual"><div class="p-ico">🖼</div><div>genesis visual</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-introVisual" src="" style="display:none">
@@ -568,7 +574,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- SLIDE 3: Opportunity (image anchor) -->
   <div class="d-slide has-img" data-slide="2">
     <div class="d-badge">introduction</div>
-    <div class="d-counter"><em>03</em> / 13</div>
+    <div class="d-counter"><em>03</em> / 16</div>
     <div class="d-img-area" id="di-opportunity" onclick="openLB('opportunity')">
       <div class="d-img-placeholder" id="dip-opportunity"><div class="p-ico">🖼</div><div>opportunity for listeners visual</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-opportunity" src="" style="display:none">
@@ -587,7 +593,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- SLIDE 4: Anthropic -->
   <div class="d-slide has-img" data-slide="3">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>04</em> / 13</div>
+    <div class="d-counter"><em>04</em> / 16</div>
     <div class="d-img-area" id="di-anthropic" onclick="openLB('anthropic')">
       <div class="d-img-placeholder" id="dip-anthropic"><div class="p-ico">🖼</div><div>distillation campaign infographic</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-anthropic" src="" style="display:none">
@@ -607,7 +613,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- SLIDE 5: Nvidia -->
   <div class="d-slide has-img" data-slide="4">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>05</em> / 13</div>
+    <div class="d-counter"><em>05</em> / 16</div>
     <div class="d-img-area dual" id="di-nvidia">
       <img id="dimg-nvidia" src="" style="display:none" onclick="openLB('nvidia')">
       <img id="dimg-nvidia2" src="" style="display:none" onclick="openLB('nvidia2')">
@@ -625,10 +631,29 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 6: Citrini -->
+  <!-- SLIDE 6: OpenAI Raise -->
   <div class="d-slide has-img" data-slide="5">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>06</em> / 13</div>
+    <div class="d-counter"><em>06</em> / 16</div>
+    <div class="d-img-area openai-raise" id="di-openairaise" onclick="openLB('openairaise')">
+      <div class="d-img-placeholder" id="dip-openairaise"><div class="p-ico">🖼</div><div>openai valuation headline</div><div class="p-hint">add image in Notes mode</div></div>
+      <img id="dimg-openairaise" src="" style="display:none">
+    </div>
+    <div class="d-content">
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">i guess<br>so<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>OpenAI reportedly raised another $110B at a $730B valuation</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Amazon, Nvidia, and SoftBank backing keeps the arms race accelerating</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Capital concentration is widening the gap between frontier labs and everyone else</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Citrini -->
+  <div class="d-slide has-img" data-slide="6">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>07</em> / 16</div>
     <div class="d-img-area" id="di-citrini" onclick="openLB('citrini')">
       <div class="d-img-placeholder" id="dip-citrini"><div class="p-ico">🖼</div><div>citrini displacement diagram</div><div class="p-hint">add image in Notes mode</div></div>
       <img id="dimg-citrini" src="" style="display:none">
@@ -645,29 +670,46 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 7: Zillow Lowball Bot -->
-  <div class="d-slide has-img" data-slide="6">
+  <!-- SLIDE 8: Block Layoffs via AI -->
+  <div class="d-slide no-img tweet-slide" data-slide="7">
     <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>07</em> / 14</div>
-    <div class="d-img-area zillow" id="di-zillow" onclick="openLB('zillow')">
-      <div class="d-img-placeholder" id="dip-zillow"><div class="p-ico">🖼</div><div>zillow lowball automation</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-zillow" src="" style="display:none">
-    </div>
-    <div class="d-content">
+    <div class="d-counter"><em>08</em> / 16</div>
+    <div class="d-content" style="max-width:1120px">
       <div class="d-label">🔴 high signal</div>
-      <div class="d-title">ai goes<br>full negotiator<em>.</em></div>
+      <div class="d-title">block cuts staff<br>as ai reshapes ops<em>.</em></div>
       <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>OpenClaw bot auto-sent Zillow lowball offers at scale</div>
-        <div class="d-bullet"><div class="d-bdot"></div>With AI, we now have effectively infinite time to negotiate price down</div>
-        <div class="d-bullet"><div class="d-bdot"></div>If this pattern expands, AI acts as a broad deflationary force</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Jack says Block is reducing headcount by ~40% as AI changes how teams operate</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Message ties layoffs to both post-COVID overhiring and structural AI efficiency gains</div>
+        <div class="d-bullet"><div class="d-bdot"></div>Negotiation, support, and back-office work all face faster compression than expected</div>
+      </div>
+      <div class="d-twitter-grid one">
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/jack/status/2027129697092731343" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/jack/status/2027129697092731343">Tweet</a></blockquote></div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 8: Transition -->
-  <div class="d-slide no-img transition-slide" data-slide="7">
+  <!-- SLIDE 9: Anthropic vs DoD Access -->
+  <div class="d-slide no-img tweet-slide" data-slide="8">
+    <div class="d-badge">signal events</div>
+    <div class="d-counter"><em>09</em> / 16</div>
+    <div class="d-content" style="max-width:1120px">
+      <div class="d-label">🔴 high signal</div>
+      <div class="d-title">dario says<br>f*** yourself<em>.</em></div>
+      <div class="d-bullets">
+        <div class="d-bullet"><div class="d-bdot"></div>Anthropic reportedly pushed back on unfettered government access to Claude for military workflows</div>
+        <div class="d-bullet"><div class="d-bdot"></div>This draws a hard line between enterprise deployment and unrestricted defense usage</div>
+        <div class="d-bullet"><div class="d-bdot"></div>The AI race is no longer just technical, it is now explicitly geopolitical</div>
+      </div>
+      <div class="d-twitter-grid one">
+        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/tulipking/status/2027164206974251482" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/tulipking/status/2027164206974251482">Tweet</a></blockquote></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: Transition -->
+  <div class="d-slide no-img transition-slide" data-slide="9">
     <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>08</em> / 14</div>
+    <div class="d-counter"><em>10</em> / 16</div>
     <div class="d-content">
       <div class="d-label">tips · tricks · workflows</div>
       <div class="d-title">from signal to<br>execution<em>.</em></div>
@@ -679,10 +721,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 9: Cheat Code - AI for GTM -->
-  <div class="d-slide no-img" data-slide="8">
+  <!-- SLIDE 11: Cheat Code - AI for GTM -->
+  <div class="d-slide no-img tweet-slide" data-slide="10">
     <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>09</em> / 14</div>
+    <div class="d-counter"><em>11</em> / 16</div>
     <div class="d-content" style="max-width:1120px">
       <div class="d-label">ai for gtm engineering</div>
       <div class="d-title">operating system<br>for growth teams<em>.</em></div>
@@ -700,10 +742,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 10: Cheat Code - Polymarket -->
-  <div class="d-slide no-img" data-slide="9">
+  <!-- SLIDE 12: Cheat Code - Polymarket -->
+  <div class="d-slide no-img tweet-slide" data-slide="11">
     <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>10</em> / 14</div>
+    <div class="d-counter"><em>12</em> / 16</div>
     <div class="d-content" style="max-width:1120px">
       <div class="d-label">polymarket data dump + cli</div>
       <div class="d-title">from headlines to<br>structured edge<em>.</em></div>
@@ -719,10 +761,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 11: Cheat Code - Skills -->
-  <div class="d-slide no-img" data-slide="10">
+  <!-- SLIDE 13: Cheat Code - Skills -->
+  <div class="d-slide no-img tweet-slide" data-slide="12">
     <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>11</em> / 14</div>
+    <div class="d-counter"><em>13</em> / 16</div>
     <div class="d-content" style="max-width:1120px">
       <div class="d-label">skills vs playbooks vs claude.md</div>
       <div class="d-title">turn prompting into<br>team infrastructure<em>.</em></div>
@@ -737,10 +779,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 12: AI Stack -->
-  <div class="d-slide no-img" data-slide="11">
+  <!-- SLIDE 14: AI Stack -->
+  <div class="d-slide no-img" data-slide="13">
     <div class="d-badge">ai stack</div>
-    <div class="d-counter"><em>12</em> / 14</div>
+    <div class="d-counter"><em>14</em> / 16</div>
     <div class="d-content" style="max-width:1100px">
       <div class="d-label">what we're actually using</div>
       <div class="d-title">our stack<em>.</em></div>
@@ -767,10 +809,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 13: Over/Under -->
-  <div class="d-slide no-img" data-slide="12">
+  <!-- SLIDE 15: Over/Under -->
+  <div class="d-slide no-img" data-slide="14">
     <div class="d-badge">overrated vs underrated</div>
-    <div class="d-counter"><em>13</em> / 14</div>
+    <div class="d-counter"><em>15</em> / 16</div>
     <div class="d-content" style="max-width:1000px">
       <div class="d-label">hot takes</div>
       <div class="d-title">over vs<br>under<em>.</em></div>
@@ -792,10 +834,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
     </div>
   </div>
 
-  <!-- SLIDE 14: Wrap -->
-  <div class="d-slide no-img" data-slide="13">
+  <!-- SLIDE 16: Wrap -->
+  <div class="d-slide no-img" data-slide="15">
     <div class="d-badge">wrap up</div>
-    <div class="d-counter"><em>14</em> / 14</div>
+    <div class="d-counter"><em>16</em> / 16</div>
     <div class="d-content">
       <div class="d-label">every friday · 10am est · blocmates.</div>
       <div class="d-title">tap in<em>.</em></div>
@@ -825,6 +867,8 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <button class="dot" onclick="goSlide(11)"></button>
   <button class="dot" onclick="goSlide(12)"></button>
   <button class="dot" onclick="goSlide(13)"></button>
+  <button class="dot" onclick="goSlide(14)"></button>
+  <button class="dot" onclick="goSlide(15)"></button>
 </div>
 
 </div><!-- end main -->
@@ -845,7 +889,7 @@ const defaultImages = {
   anthropic: '/app/genesis/images/PNG%20image%202.png',
   nvidia: '/app/genesis/images/PNG%20image%203.png',
   nvidia2: '/app/genesis/images/PNG%20image%206.png',
-  zillow: '/app/genesis/images/PNG%20image%207.png',
+  openairaise: '/app/genesis/images/PNG%20image%208.png',
   citrini: '/app/genesis/images/PNG%20image%204.png'
 };
 
@@ -959,7 +1003,7 @@ function updateLink(key, val) {
 // ── Display scroll / dots ──
 const dp = document.getElementById('displayPanel');
 const dots = document.querySelectorAll('.dot');
-const totalSlides = 14;
+const totalSlides = 16;
 let curSlide = 0;
 
 function goSlide(i) {
