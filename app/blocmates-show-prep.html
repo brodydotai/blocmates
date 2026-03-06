@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>blocmates. — genesis ep. 01</title>
+<title>blocmates. — episode 02</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -26,6 +26,14 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   display:flex; align-items:center; justify-content:space-between;
   padding:11px 22px; border-bottom:1px solid rgba(237,230,221,0.08);
   flex-shrink:0; z-index:100; background:var(--black);
+  transition:opacity 0.3s;
+}
+body.display-active .topbar {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  opacity:0; pointer-events:none;
+}
+body.display-active .topbar:hover {
+  opacity:1; pointer-events:auto;
 }
 .logo { font-weight:700; font-size:19px; letter-spacing:-0.5px; }
 .logo em { color:var(--red); font-style:normal; }
@@ -179,13 +187,14 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 }
 /* With image: top=content, bottom=image */
 .d-slide.has-img { grid-template-rows:44vh 56vh; }
+.d-slide.has-tweet { grid-template-rows:38vh 62vh; }
 .d-slide.has-img .d-content { order:0; border-top:none; border-bottom:1px solid rgba(237,230,221,0.07); }
 .d-slide.has-img .d-img-area { order:1; }
 /* No image: single full content */
 .d-slide.no-img { grid-template-rows:1fr; align-items:stretch; justify-items:start; }
 .d-slide.image-only { display:flex; align-items:center; justify-content:center; padding:70px 64px 36px; }
 .d-slide.image-only .d-img-area { width:100%; height:100%; max-height:calc(100vh - 120px); }
-.d-slide.intro-hero { grid-template-columns:56% 44%; align-items:center; }
+.d-slide.intro-hero { grid-template-columns:1fr 1fr; align-items:center; }
 .d-slide.transition-slide { align-items:stretch; justify-items:stretch; }
 
 /* Slide counter */
@@ -216,6 +225,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-img-area.dual { display:grid; grid-template-columns:1fr 1fr; gap:14px; cursor:default; }
 .d-img-area.dual img { object-fit:cover; cursor:zoom-in; }
 .d-img-area.dual:hover img { transform:none; }
+.d-tweet-area { order:1; display:flex; align-items:flex-start; justify-content:center; padding:20px 24px; overflow-y:auto; background:transparent; align-self:stretch; width:100%; min-height:0; border-top:1px solid rgba(237,230,221,0.07); }
+.d-tweet-area .tweet-wrap { width:100%; max-width:520px; background:transparent; border:none; padding:0; min-height:auto; }
+.d-tweet-area .tweet-fallback { font-size:13px; color:rgba(93,155,213,0.7); text-decoration:none; margin-top:8px; display:inline-block; }
+.d-tweet-area .tweet-fallback:hover { color:#5b9bd5; }
 .d-img-placeholder {
   width:100%; height:100%; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:8px;
@@ -232,8 +245,8 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-slide.no-img .d-content {
   padding:60px 100px; text-align:left; max-width:1000px; width:100%;
 }
-.d-slide.intro-hero .d-content { padding:70px 60px 60px 92px; max-width:none; }
-.d-intro-right { display:flex; align-items:center; justify-content:center; height:100%; padding-right:56px; }
+.d-slide.intro-hero .d-content { padding:70px 0px 60px 80px; max-width:none; }
+.d-intro-right { display:flex; align-items:center; justify-content:flex-start; height:100%; padding:0 40px 0 0; }
 .pfp-triangle { position:relative; width:640px; height:560px; }
 .pfp-card { position:absolute; display:flex; flex-direction:column; align-items:center; text-align:center; }
 .pfp-card img { width:224px; height:224px; border-radius:50%; border:2px solid rgba(237,230,221,0.2); object-fit:cover; background:rgba(10,10,10,0.3); }
@@ -242,6 +255,10 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .pfp-top { top:0; left:50%; transform:translateX(-50%); }
 .pfp-left { bottom:12px; left:0; }
 .pfp-right { bottom:12px; right:0; }
+.pfp-duo { display:flex; gap:56px; justify-content:center; align-items:center; }
+.pfp-duo .pfp-card { position:static; }
+.pfp-duo .pfp-card img { width:200px; height:200px; }
+
 .d-slide.transition-slide .d-content { width:100%; max-width:none; padding:28px 72px; text-align:left; }
 .d-img-area.zillow { display:flex; align-items:center; justify-content:center; }
 .d-img-area.zillow img { width:100%; height:auto; max-height:88%; max-width:76%; object-fit:contain; padding:0; }
@@ -249,9 +266,9 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 .d-img-area.openai-raise img { width:100%; height:auto; max-height:88%; max-width:58%; object-fit:contain; padding:0; }
 
 .d-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--red); margin-bottom:10px; }
-.d-title { font-size:44px; font-weight:700; letter-spacing:-1.5px; line-height:1.05; color:var(--cream); margin-bottom:18px; }
+.d-title { font-size:48px; font-weight:700; letter-spacing:-1.5px; line-height:1.05; color:var(--cream); margin-bottom:18px; white-space:nowrap; }
 .d-title em { color:var(--red); font-style:normal; }
-.d-slide.no-img .d-title { font-size:56px; margin-bottom:24px; }
+
 
 .d-bullets { display:flex; flex-direction:column; gap:10px; }
 .d-bullet { display:flex; align-items:flex-start; gap:12px; font-size:17px; color:rgba(237,230,221,0.72); line-height:1.55; }
@@ -307,7 +324,7 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 <div class="topbar">
   <div style="display:flex;align-items:center">
     <div class="logo">blocmates<em>.</em></div>
-    <div class="ep-label">genesis — episode 01</div>
+    <div class="ep-label">episode 02</div>
   </div>
   <div class="mode-toggle">
     <button class="mode-btn active" id="notesBtn" onclick="setMode('notes')">📝 Notes</button>
@@ -330,23 +347,20 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sb-lbl">segments</div>
-    <div class="nav-it active" data-s="n-intro" onclick="navTo('n-intro',this)"><span class="nav-n">01</span>introduction</div>
-    <div class="nav-it" data-s="n-events" onclick="navTo('n-events',this)"><span class="nav-n">02</span>signal events</div>
-    <div class="nav-it" data-s="n-cheatcode" onclick="navTo('n-cheatcode',this)"><span class="nav-n">03</span>the cheat code</div>
-    <div class="nav-it" data-s="n-stack" onclick="navTo('n-stack',this)"><span class="nav-n">04</span>ai stack</div>
-    <div class="nav-it" data-s="n-overrated" onclick="navTo('n-overrated',this)"><span class="nav-n">05</span>over / underrated</div>
-    <div class="nav-it" data-s="n-wrapup" onclick="navTo('n-wrapup',this)"><span class="nav-n">06</span>wrap up</div>
+    <div class="nav-it active" data-s="n-highsignal" onclick="navTo('n-highsignal',this)"><span class="nav-n">01</span>high signal</div>
+    <div class="nav-it" data-s="n-tips" onclick="navTo('n-tips',this)"><span class="nav-n">02</span>the tool shed</div>
+    <div class="nav-it" data-s="n-seg4" onclick="navTo('n-seg4',this)"><span class="nav-n">03</span>ai vs. reality</div>
+    <div class="nav-it" data-s="n-tapin" onclick="navTo('n-tapin',this)"><span class="nav-n">04</span>tap in</div>
     <div class="nav-div"></div>
     <div class="sb-lbl">timing</div>
     <div style="padding:0 16px">
       <div class="t-row"><span>intro</span><span class="t-val">~15 min</span></div>
-      <div class="t-row"><span>events</span><span class="t-val">~15 min</span></div>
-      <div class="t-row"><span>cheat code</span><span class="t-val">~10 min</span></div>
-      <div class="t-row"><span>ai stack</span><span class="t-val">~10 min</span></div>
-      <div class="t-row"><span>over/under</span><span class="t-val">~10 min</span></div>
-      <div class="t-row"><span>wrap up</span><span class="t-val">~5 min</span></div>
+      <div class="t-row"><span>high signal</span><span class="t-val">~15 min</span></div>
+      <div class="t-row"><span>the tool shed</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>ai vs. reality</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>tap in</span><span class="t-val">~5 min</span></div>
       <div class="nav-div"></div>
-      <div class="t-row"><span>total</span><span class="t-tot">~65 min</span></div>
+      <div class="t-row"><span>total</span><span class="t-tot">~55 min</span></div>
     </div>
   </div>
 
@@ -364,158 +378,185 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
       </div>
       <div class="n-grid-2">
         <div class="n-card">
-          <div class="n-block-label">premise of the show</div>
-          <div class="n-editable" contenteditable="false">AI is having its 2020–2021 crypto moment. Most AI content is either too technical or pure surface-level hype. Nobody is making personality-driven, opinionated, casual AI content for people actually in the arena. That's the gap. That's this show.</div>
+          <div class="n-block-label">episode theme</div>
+          <div class="n-editable" contenteditable="false">AI went kinetic this week. Claude was used in a real US military operation against Iran — hours after it was allegedly blacklisted from DoD. The line between chatbot and weapon just blurred in real time.</div>
         </div>
         <div class="n-card">
-          <div class="n-block-label">who we are</div>
-          <div class="n-editable" contenteditable="false">Brief intros from Brody, Grant, and 563. Not formal bios — how each of you got pulled into AI and why you care. The dynamic between the three of you IS the show.</div>
-        </div>
-        <div class="n-card n-full">
-          <div class="n-block-label">the opportunity for listeners</div>
-          <div class="n-editable" contenteditable="false">There's never been a better time to build, experiment, and grow. You are early to the movement. We help you figure out where to look.</div>
-          <div class="n-img-slot" id="ns-opportunity">
-            <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">opportunity for listeners visual</span><input type="file" accept="image/*" onchange="loadImg(this,'opportunity')"></label>
-          </div>
+          <div class="n-block-label">community pulse</div>
+          <div class="n-editable" contenteditable="false">Ejaaz (@cryptopunk7213) had the most viral AI content this week — 8M+ views on the 24-year-old trader breakdown, 1.28M+ on NVIDIA in farming. The community is watching the infrastructure trade, not just the models.</div>
         </div>
       </div>
     </div>
 
-    <!-- 02 EVENTS -->
-    <div class="n-section" id="n-events" draggable="true" ondragstart="dragStart(event,'n-events')" ondragover="dragOver(event)" ondrop="drop(event,'n-events')" ondragleave="dragLeave(event)">
+    <!-- 02 HIGH SIGNAL -->
+    <div class="n-section" id="n-highsignal" draggable="true" ondragstart="dragStart(event,'n-highsignal')" ondragover="dragOver(event)" ondrop="drop(event,'n-highsignal')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">02</span>
-        <span class="n-sec-title">highest signal events</span>
+        <span class="n-sec-title">high signal</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~15 min</span>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">Anthropic gets distilled by Chinese labs <span class="tag ts">🔴 signal</span></div>
-        <div class="n-editable" contenteditable="false">DeepSeek, Moonshot AI, and MiniMax — 16 million Claude queries, 24,000 fraudulent accounts. Anthropic caught them and went public. Open vs. closed model debate. Is this a problem or just how AI evolves?</div>
-        <div class="n-img-slot" id="ns-anthropic">
-          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">distillation campaign infographic</span><input type="file" accept="image/*" onchange="loadImg(this,'anthropic')"></label>
+        <div class="n-card-title">🔴 LEAD — Claude went to war <span class="tag ts">geopolitics</span></div>
+        <div class="n-editable" contenteditable="false">US gov used Anthropic's Claude in the Iran strike — hours after allegedly blacklisting it. OpenAI scrambled to amend a "sloppy" DoD deal after public backlash. Claude sign-ups spiked. OpenAI's tanked. Anthropic now tracking toward $19B ARR (up from $5B weeks ago).</div>
+        <div class="n-img-slot" id="slot-hs-1">
+          <label class="n-upload-label" for="img-hs-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-hs-1" accept="image/*" onchange="loadImg('slot-hs-1','disp-hs-1',this)">
         </div>
         <div class="n-link-area">
           <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-anthropic" type="url" placeholder="paste article URL..." oninput="updateLink('anthropic',this.value)">
+          <input class="n-link-inp" id="nl-iran" type="url" value="https://x.com/slow_developer/status/2029153632046719305" oninput="updateLink('iran',this.value)">
         </div>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">Nvidia beats earnings — the party continues... i think? <span class="tag ts">🔴 signal</span></div>
-        <div class="n-editable" contenteditable="false">$68.1B revenue, up 73% YoY. Data center up 75% to $62.3B. Q1 guidance $78B. The AI infrastructure trade is not slowing down. The stock is trading down today despite the earnings beat.</div>
-        <div class="n-img-slot" id="ns-nvidia">
-          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">nvidia earnings chart</span><input type="file" accept="image/*" onchange="loadImg(this,'nvidia')"></label>
+        <div class="n-card-title">Block cuts 4,000 jobs; Gemini lawsuit <span class="tag ts">layoffs</span></div>
+        <div class="n-editable" contenteditable="false">Jack Dorsey cuts 4,000 at Block citing AI advances as the structural driver — negotiation, support, back-office compressing faster than expected. Same week: Google faces lawsuit after Gemini encouraged a user to kill himself. The stakes of deployment just got concrete.</div>
+        <div class="n-img-slot" id="slot-hs-2">
+          <label class="n-upload-label" for="img-hs-2"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-hs-2" accept="image/*" onchange="loadImg('slot-hs-2','disp-hs-2',this)">
         </div>
         <div class="n-link-area">
           <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-nvidia" type="url" placeholder="paste article URL..." oninput="updateLink('nvidia',this.value)">
+          <input class="n-link-inp" id="nl-block" type="url" value="https://www.theguardian.com/technology/2026/feb/27/block-ai-layoffs-jack-dorsey" oninput="updateLink('block',this.value)">
         </div>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">The Citrini doom post <span class="tag ts">🔴 signal</span></div>
-        <div class="n-editable" contenteditable="false">Fictional dispatch from 2028: mass white-collar layoffs, "human intelligence displacement spiral," 38% S&P crash. IGV 52-week low, IBM worst single-day drop in 25 years. Recovered next day. Fear-mongering or legitimate thesis?</div>
-        <div class="n-img-slot" id="ns-citrini">
-          <label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">citrini displacement diagram</span><input type="file" accept="image/*" onchange="loadImg(this,'citrini')"></label>
-        </div>
+        <div class="n-card-title">Frontier model roundup <span class="tag ts">models</span></div>
+        <div class="n-editable" contenteditable="false">OpenAI drops GPT-5.4 and admits prior models were "cringe." A legendary mathematician uses Claude Opus 4.6 to solve a major conjecture. Claude Code rolls out voice note capability. The pace of meaningful iteration is not slowing down. SaaSpocalypse: SaaS in, SaaS out — AI is eating the stack.</div>
         <div class="n-link-area">
           <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-citrini" type="url" placeholder="paste article URL..." oninput="updateLink('citrini',this.value)">
+          <input class="n-link-inp" id="nl-models" type="url" value="https://techcrunch.com/2026/03/01/saas-in-saas-out-heres-whats-driving-the-saaspocalypse/" oninput="updateLink('models',this.value)">
+        </div>
+      </div>
+
+      <div class="n-card">
+        <div class="n-card-title">Also worth mentioning <span class="tag tw">misc</span></div>
+        <div class="n-editable" contenteditable="false">UK commits £40M research lab for AI breakthroughs. Palantir spending millions to block a former exec's NYC congressional bid — AI's political footprint is expanding fast. Musician Holly Herndon builds an AI clone of her own voice anyone can use to sing like her.</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" id="nl-misc" type="url" value="https://www.scientificamerican.com/article/experimental-composer-holly-herndon-built-an-ai-voice-clone-that-anyone-can/" oninput="updateLink('misc',this.value)">
         </div>
       </div>
     </div>
 
-    <!-- 03 CHEAT CODE -->
-    <div class="n-section" id="n-cheatcode" draggable="true" ondragstart="dragStart(event,'n-cheatcode')" ondragover="dragOver(event)" ondrop="drop(event,'n-cheatcode')" ondragleave="dragLeave(event)">
+    <!-- 03 THE TOOL SHED -->
+    <div class="n-section" id="n-tips" draggable="true" ondragstart="dragStart(event,'n-tips')" ondragover="dragOver(event)" ondrop="drop(event,'n-tips')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">03</span>
-        <span class="n-sec-title">the cheat code</span>
+        <span class="n-sec-title">the tool shed</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~10 min</span>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">AI for GTM engineering <span class="tag tw">workflow</span></div>
-        <div class="n-editable" contenteditable="false">Very applicable to people's day jobs. Cody Schneider is a good follow. Facebook ad generator, Klaviyo + GA dashboard integration, and SEO for getting recommended in AI models — what are we calling this?</div>
+        <div class="n-card-title">Claude Code voice notes <span class="tag tt">tool</span></div>
+        <div class="n-editable" contenteditable="false">Voice mode is now live in Claude Code. You can dictate tasks directly into your agentic session — no keyboard needed for complex multi-step prompts. This is the biggest UX shift for non-technical users since the launch. Massive for people building with Cowork.</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" id="nl-voicenote" type="url" value="https://techcrunch.com/2026/03/03/claude-code-rolls-out-a-voice-mode-capability/" oninput="updateLink('voicenote',this.value)">
+        </div>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">Polymarket order book data dump <span class="tag tt">tool</span></div>
-        <div class="n-editable" contenteditable="false">Huge dump of Polymarket order book data is public. Starting point for a trading bot. Polymarket also released a CLI — barrier to building on prediction markets just dropped.</div>
+        <div class="n-card-title">God's Eye — Palantir for free <span class="tag tw">build</span></div>
+        <div class="n-editable" contenteditable="false">One solo dev used public OSINT + AI agents to rebuild the Iran strike as a 4D time-lapse replay. Flights, satellites, shipping, GPS blackouts — all synthesized in real time. Built by one person. Free. This is what the barrier to building with AI actually looks like now.</div>
+        <div class="n-img-slot" id="slot-ts-1">
+          <label class="n-upload-label" for="img-ts-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-ts-1" accept="image/*" onchange="loadImg('slot-ts-1','disp-ts-1',this)">
+        </div>
       </div>
+
       <div class="n-card">
-        <div class="n-card-title">Skills, playbooks, CLAUDE.md <span class="tag tw">workflow</span></div>
-        <div class="n-editable" contenteditable="false">The meta layer most people skip. Best practices? How do you structure your CLAUDE.md, what goes in your skills, how does a good playbook look in practice?</div>
+        <div class="n-card-title">Devaillance Spectra 1 <span class="tag tt">hardware</span></div>
+        <div class="n-editable" contenteditable="false">Portable device that emits an inaudible signal to prevent nearby microphones from capturing intelligible audio. Detects and logs listening devices. Runs entirely on-device — no cloud, no data leaving the room. Aimed squarely at AI-era surveillance. $999 pre-order (refundable), shipping H2 2026.</div>
+        <div class="n-img-slot" id="slot-ts-2">
+          <label class="n-upload-label" for="img-ts-2"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-ts-2" accept="image/*" onchange="loadImg('slot-ts-2','disp-ts-2',this)">
+        </div>
+      </div>
+
+      <div class="try-box">
+        <div class="try-title">try this week</div>
+        <div class="try-chips">
+          <span class="try-chip">Claude Code voice mode</span>
+          <span class="try-chip">Perplexity OSINT research</span>
+          <span class="try-chip">Devaillance Spectra 1</span>
+        </div>
       </div>
     </div>
 
-    <!-- 04 STACK -->
-    <div class="n-section" id="n-stack" draggable="true" ondragstart="dragStart(event,'n-stack')" ondragover="dragOver(event)" ondrop="drop(event,'n-stack')" ondragleave="dragLeave(event)">
+    <!-- 04 ALPHA DROP -->
+    <div class="n-section" id="n-seg4" draggable="true" ondragstart="dragStart(event,'n-seg4')" ondragover="dragOver(event)" ondrop="drop(event,'n-seg4')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">04</span>
-        <span class="n-sec-title">ai stack breakdown</span>
+        <span class="n-sec-title">alpha drop</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~10 min</span>
       </div>
-      <div class="n-grid-3">
-        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">brody</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">host</div>
-          <div class="n-editable" contenteditable="false" style="font-size:13px">• Claude Opus 4.6 — architecture, project lead, research<br>• Codex 5.3 — staff engineer<br>• Cursor / Cowork — building<br>• Gemini — advanced searches<br>• Wispr — voice dictation</div>
+
+      <div class="n-card">
+        <div class="n-card-title">The 24-year-old who turned $225M → $5.5B <span class="tag ts">trade breakdown</span></div>
+        <div class="n-editable" contenteditable="false">Ejaaz (@cryptopunk7213) broke this down — 8M+ views, 18K+ likes, most viral AI investing content of the week. Key positions: $885M in Bloom Energy (portable turbines for AI data centers), $700M in CoreWeave (GPU hosting), shorted Infosys hard (betting Claude Code/Codex replaces outsourced IT). Fund up $1.5B in 3 months, +35% last quarter, outpaced S&P 500 8x in H1.</div>
+        <div class="n-img-slot" id="slot-ad-1">
+          <label class="n-upload-label" for="img-ad-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-ad-1" accept="image/*" onchange="loadImg('slot-ad-1','disp-ad-1',this)">
         </div>
-        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">grant</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">founder</div>
-          <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
-        </div>
-        <div class="n-card"><div style="font-size:15px;font-weight:700;margin-bottom:2px">563</div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">head of research</div>
-          <div class="n-editable" contenteditable="false" style="font-size:13px;color:rgba(237,230,221,0.2);font-style:italic">to be filled live on air</div>
-        </div>
+      </div>
+
+      <div class="n-card">
+        <div class="n-card-title">The energy infrastructure thesis <span class="tag tw">macro</span></div>
+        <div class="n-editable" contenteditable="false">The big realization: the AI trade isn't about GPUs anymore, it's about the power behind them. Energy is the bottleneck. Also buying Bitcoin miners (Cipher, Bitdeer) to repurpose for AI data centers. Owns 10% of Core Scientific. Added $300M to CoreWeave. Dumped large NVIDIA/Intel stakes. This is the next leg of the AI infrastructure play.</div>
       </div>
     </div>
 
-    <!-- 05 OVER/UNDER -->
-    <div class="n-section" id="n-overrated" draggable="true" ondragstart="dragStart(event,'n-overrated')" ondragover="dragOver(event)" ondrop="drop(event,'n-overrated')" ondragleave="dragLeave(event)">
+    <!-- 05 HOT TAKES -->
+    <div class="n-section" id="n-seg5" draggable="true" ondragstart="dragStart(event,'n-seg5')" ondragover="dragOver(event)" ondrop="drop(event,'n-seg5')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">05</span>
-        <span class="n-sec-title">overrated vs underrated</span>
+        <span class="n-sec-title">hot takes</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~10 min</span>
       </div>
+
+      <div class="n-card">
+        <div class="n-card-title">Apple won by not competing <span class="tag tw">hot take</span></div>
+        <div class="n-editable" contenteditable="false">Ejaaz thread, 1.28M+ views: Apple "failed" at frontier models but is positioned perfectly for the device layer. Paid $1B for Gemini while rivals burned trillions. 2.5B devices, $150B cash, M5 chips enabling local AI agents. On-device = cheaper, private, personal vs. $200/mo subscriptions. The winner in AI might be the one who didn't try to build the model.</div>
+      </div>
+
       <div class="or-pair">
         <div class="or-box ov"><div class="or-box-title">🔴 overrated</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>All video generation models + platforms</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>Open Claw</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>Doomerism</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>All Gemini plugins</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>Frontier model arms race as the primary value driver</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>Worrying about which lab "wins"</div>
+          <div class="or-item"><span class="or-dash-ov">—</span>SaaS subscriptions that an AI agent can replace</div>
         </div>
         <div class="or-box un"><div class="or-box-title">🟢 underrated</div>
-          <div class="or-item"><span class="or-dash-un">—</span>Perplexity investment research tool</div>
-          <div class="or-item"><span class="or-dash-un">—</span>Optimism as competitive advantage</div>
-          <div class="or-item"><span class="or-dash-un">—</span>Belief in yourself as an AI-era skill</div>
-        </div>
-      </div>
-      <div class="try-box">
-        <div class="try-title">📋 to try — first impressions on air</div>
-        <div class="try-chips">
-          <span class="try-chip">Claude plugins</span>
-          <span class="try-chip">Nous Hermes Agent</span>
-          <span class="try-chip">QuiverAI</span>
-          <span class="try-chip">Notion Agents</span>
+          <div class="or-item"><span class="or-dash-un">—</span>Energy + infrastructure as the AI trade</div>
+          <div class="or-item"><span class="or-dash-un">—</span>On-device AI (Apple, M5 chips)</div>
+          <div class="or-item"><span class="or-dash-un">—</span>NVIDIA's dominance outside data centers (farming: 80% market share)</div>
         </div>
       </div>
     </div>
 
-    <!-- 06 WRAPUP -->
-    <div class="n-section" id="n-wrapup" draggable="true" ondragstart="dragStart(event,'n-wrapup')" ondragover="dragOver(event)" ondrop="drop(event,'n-wrapup')" ondragleave="dragLeave(event)">
+    <!-- 06 TAP IN -->
+    <div class="n-section" id="n-tapin" draggable="true" ondragstart="dragStart(event,'n-tapin')" ondragover="dragOver(event)" ondrop="drop(event,'n-tapin')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">06</span>
-        <span class="n-sec-title">wrap up</span>
+        <span class="n-sec-title">tap in</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~5 min</span>
       </div>
       <div class="wu-list">
-        <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>Tease what's coming next week</div>
-        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>Where to find the show</div>
-        <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Tap in every Friday at 10am EST — only at blocmates.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>AI didn't just automate a job this week — it flew a mission. That changes the conversation.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>The energy + infrastructure trade is the most interesting bet in markets right now. Follow the power.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Subscribe at blocmates.com — tap in every Friday at 10am EST.</div>
       </div>
     </div>
 
@@ -523,332 +564,288 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
 </div><!-- end notesPanel -->
 
 <!-- ════════════════════════════
-     DISPLAY PANEL — SNAP SCROLL
+     DISPLAY PANEL - SNAP SCROLL
 ════════════════════════════ -->
-<div id="displayPanel">
-
-  <!-- SLIDE 1: Cover -->
-  <div class="d-slide intro-hero" data-slide="0">
-    <div class="d-badge">blocmates.</div>
-    <div class="d-counter"><em>01</em> / 16</div>
-    <div class="d-content">
-      <div class="d-label">genesis · episode 01</div>
-      <div class="d-title">the singularity show<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>AI is having its 2020–2021 crypto moment</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Clear takes from builders in the arena, not recycled hype</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Brody (host) · Grant (founder) · 563 (head of research)</div>
+<div id="displayPanel" class="">
+    <!-- SLIDE 0: INTRO HERO -->
+    <div class="d-slide intro-hero" data-slide="0">
+      <div class="d-badge">blocmates.</div>
+      <div class="d-counter"><em>01</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">episode 02</div>
+        <div class="d-title">ai went kinetic<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Claude was used in a live military operation this week</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>This 24 year old has more money than you</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Our take on fresh tools</span></div>
+        </div>
       </div>
-    </div>
-    <div class="d-intro-right">
-      <div class="pfp-triangle">
-        <div class="pfp-card pfp-top">
-          <img src="/app/genesis/images/brody%20pfp.png" alt="Brody profile">
-          <div class="pfp-name">brody</div>
-          <div class="pfp-role">host</div>
-        </div>
-        <div class="pfp-card pfp-left">
-          <img src="/app/genesis/images/grant%20pfp.png" alt="Grant profile">
-          <div class="pfp-name">grant</div>
-          <div class="pfp-role">founder</div>
-        </div>
-        <div class="pfp-card pfp-right">
-          <img src="/app/genesis/images/563%20pfp.png" alt="563 profile">
-          <div class="pfp-name">563</div>
-          <div class="pfp-role">head of research</div>
+      <div class="d-intro-right">
+        <div class="pfp-duo">
+          <div class="pfp-card">
+            <img src="images/host.png" alt="brody">
+            <div class="pfp-name">brody</div>
+            <div class="pfp-role">host</div>
+          </div>
+          <div class="pfp-card">
+            <img src="images/cohost.png" alt="grant">
+            <div class="pfp-name">grant</div>
+            <div class="pfp-role">co-host</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- SLIDE 2: Intro Visual -->
-  <div class="d-slide image-only" data-slide="1">
-    <div class="d-badge">introduction</div>
-    <div class="d-counter"><em>02</em> / 16</div>
-    <div class="d-img-area" id="di-introVisual" onclick="openLB('introVisual')">
-      <div class="d-img-placeholder" id="dip-introVisual"><div class="p-ico">🖼</div><div>genesis visual</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-introVisual" src="" style="display:none">
+    <!-- SLIDE 1: IMAGE ONLY -->
+    <div class="d-slide image-only" data-slide="1">
+      <div class="d-badge">high signal</div>
+      <div class="d-counter"><em>02</em>/16</div>
+      <div class="d-img-area">
+        <img id="disp-hs-img" src="" alt="">
+      </div>
     </div>
-  </div>
 
-  <!-- SLIDE 3: Opportunity (image anchor) -->
-  <div class="d-slide has-img" data-slide="2">
-    <div class="d-badge">introduction</div>
-    <div class="d-counter"><em>03</em> / 16</div>
-    <div class="d-img-area" id="di-opportunity" onclick="openLB('opportunity')">
-      <div class="d-img-placeholder" id="dip-opportunity"><div class="p-ico">🖼</div><div>opportunity for listeners visual</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-opportunity" src="" style="display:none">
-    </div>
-    <div class="d-content">
-      <div class="d-label">the opportunity</div>
-      <div class="d-title">you are early<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>84% of the world has never used AI</div>
-        <div class="d-bullet"><div class="d-bdot"></div>There's never been a better time to build, experiment, grow</div>
-        <div class="d-bullet"><div class="d-bdot"></div>We help you figure out where to look</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 4: Anthropic -->
-  <div class="d-slide has-img" data-slide="3">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>04</em> / 16</div>
-    <div class="d-img-area" id="di-anthropic" onclick="openLB('anthropic')">
-      <div class="d-img-placeholder" id="dip-anthropic"><div class="p-ico">🖼</div><div>distillation campaign infographic</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-anthropic" src="" style="display:none">
-    </div>
-    <div class="d-content">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">frontier<br>under attack<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>DeepSeek · Moonshot AI · MiniMax extracted Claude's capabilities</div>
-        <div class="d-bullet"><div class="d-bdot"></div>16M queries · 24K fraudulent accounts · industrial scale</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Problem or just how AI evolves?</div>
-      </div>
-      <div class="d-link" id="dl-anthropic"><span class="d-link-ico">🔗</span><a id="dla-anthropic" href="#" target="_blank"></a></div>
-    </div>
-  </div>
-
-  <!-- SLIDE 5: Nvidia -->
-  <div class="d-slide has-img" data-slide="4">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>05</em> / 16</div>
-    <div class="d-img-area dual" id="di-nvidia">
-      <img id="dimg-nvidia" src="" style="display:none" onclick="openLB('nvidia')">
-      <img id="dimg-nvidia2" src="" style="display:none" onclick="openLB('nvidia2')">
-    </div>
-    <div class="d-content">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">the party continues...<br>i think<em>?</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>$68.1B revenue · up 73% YoY</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Data center up 75% to $62.3B · Q1 guide $78B</div>
-        <div class="d-bullet"><div class="d-bdot"></div>AI infrastructure trade is not slowing down</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Stock is trading down today despite the earnings beat</div>
-      </div>
-      <div class="d-link" id="dl-nvidia"><span class="d-link-ico">🔗</span><a id="dla-nvidia" href="#" target="_blank"></a></div>
-    </div>
-  </div>
-
-  <!-- SLIDE 6: OpenAI Raise -->
-  <div class="d-slide has-img" data-slide="5">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>06</em> / 16</div>
-    <div class="d-img-area openai-raise" id="di-openairaise" onclick="openLB('openairaise')">
-      <div class="d-img-placeholder" id="dip-openairaise"><div class="p-ico">🖼</div><div>openai valuation headline</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-openairaise" src="" style="display:none">
-    </div>
-    <div class="d-content">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">i guess<br>so<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>OpenAI reportedly raised another $110B at a $730B valuation</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Amazon, Nvidia, and SoftBank backing keeps the arms race accelerating</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Capital concentration is widening the gap between frontier labs and everyone else</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 7: Citrini -->
-  <div class="d-slide has-img" data-slide="6">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>07</em> / 16</div>
-    <div class="d-img-area" id="di-citrini" onclick="openLB('citrini')">
-      <div class="d-img-placeholder" id="dip-citrini"><div class="p-ico">🖼</div><div>citrini displacement diagram</div><div class="p-hint">add image in Notes mode</div></div>
-      <img id="dimg-citrini" src="" style="display:none">
-    </div>
-    <div class="d-content">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">the doom<br>post<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Fictional 2028: mass layoffs · 38% S&P crash</div>
-        <div class="d-bullet"><div class="d-bdot"></div>IGV 52-week low · IBM worst day in 25 years</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Fear-mongering or legitimate thesis?</div>
-      </div>
-      <div class="d-link" id="dl-citrini"><span class="d-link-ico">🔗</span><a id="dla-citrini" href="#" target="_blank"></a></div>
-    </div>
-  </div>
-
-  <!-- SLIDE 8: Block Layoffs via AI -->
-  <div class="d-slide no-img tweet-slide" data-slide="7">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>08</em> / 16</div>
-    <div class="d-content" style="max-width:1120px">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">block cuts staff<br>as ai reshapes ops<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Jack says Block is reducing headcount by ~40% as AI changes how teams operate</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Message ties layoffs to both post-COVID overhiring and structural AI efficiency gains</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Negotiation, support, and back-office work all face faster compression than expected</div>
-      </div>
-      <div class="d-twitter-grid one">
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/jack/status/2027129697092731343" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/jack/status/2027129697092731343">Tweet</a></blockquote></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 9: Anthropic vs DoD Access -->
-  <div class="d-slide no-img tweet-slide" data-slide="8">
-    <div class="d-badge">signal events</div>
-    <div class="d-counter"><em>09</em> / 16</div>
-    <div class="d-content" style="max-width:1120px">
-      <div class="d-label">🔴 high signal</div>
-      <div class="d-title">dario says<br>f*** yourself<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Anthropic reportedly pushed back on unfettered government access to Claude for military workflows</div>
-        <div class="d-bullet"><div class="d-bdot"></div>This draws a hard line between enterprise deployment and unrestricted defense usage</div>
-        <div class="d-bullet"><div class="d-bdot"></div>The AI race is no longer just technical, it is now explicitly geopolitical</div>
-      </div>
-      <div class="d-twitter-grid one">
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/tulipking/status/2027164206974251482" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/tulipking/status/2027164206974251482">Tweet</a></blockquote></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 10: Transition -->
-  <div class="d-slide no-img transition-slide" data-slide="9">
-    <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>10</em> / 16</div>
-    <div class="d-content">
-      <div class="d-label">tips · tricks · workflows</div>
-      <div class="d-title">from signal to<br>execution<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Now: what to actually do with this week's signal</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Practical workflows you can test immediately</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Tools, setups, and playbooks that compound</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 11: Cheat Code - AI for GTM -->
-  <div class="d-slide no-img tweet-slide" data-slide="10">
-    <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>11</em> / 16</div>
-    <div class="d-content" style="max-width:1120px">
-      <div class="d-label">ai for gtm engineering</div>
-      <div class="d-title">operating system<br>for growth teams<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>GTM workflows are becoming composable systems, not one-off prompts</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Distribution + data plumbing matter more than model novelty for ROI</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Teams shipping weekly automations build a compounding execution edge</div>
-      </div>
-      <div class="d-twitter-grid">
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026303611555201217" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026303611555201217">Tweet</a></blockquote></div>
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026421911538762176" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026421911538762176">Tweet</a></blockquote></div>
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/codyschneiderxx/status/2026432007815733423" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/codyschneiderxx/status/2026432007815733423">Tweet</a></blockquote></div>
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/boringlocalseo/status/2025616604512604454" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/boringlocalseo/status/2025616604512604454">Tweet</a></blockquote></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 12: Cheat Code - Polymarket -->
-  <div class="d-slide no-img tweet-slide" data-slide="11">
-    <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>12</em> / 16</div>
-    <div class="d-content" style="max-width:1120px">
-      <div class="d-label">polymarket data dump + cli</div>
-      <div class="d-title">from headlines to<br>structured edge<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Open order-book data lowers the barrier to strategy development</div>
-        <div class="d-bullet"><div class="d-bdot"></div>The CLI makes ingestion, backtesting, and iteration repeatable</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Execution quality and risk management still decide outcomes</div>
-      </div>
-      <div class="d-twitter-grid">
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/martkiro/status/2026327582627545548" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/martkiro/status/2026327582627545548">Tweet</a></blockquote></div>
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/SuhailKakar/status/2026305257257775524" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/SuhailKakar/status/2026305257257775524">Tweet</a></blockquote></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 13: Cheat Code - Skills -->
-  <div class="d-slide no-img tweet-slide" data-slide="12">
-    <div class="d-badge">the cheat code</div>
-    <div class="d-counter"><em>13</em> / 16</div>
-    <div class="d-content" style="max-width:1120px">
-      <div class="d-label">skills vs playbooks vs claude.md</div>
-      <div class="d-title">turn prompting into<br>team infrastructure<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Skills capture reusable capabilities, playbooks capture sequences</div>
-        <div class="d-bullet"><div class="d-bdot"></div>CLAUDE.md encodes defaults so sessions start with the right context</div>
-        <div class="d-bullet"><div class="d-bdot"></div>The best teams version these assets like code</div>
-      </div>
-      <div class="d-twitter-grid one">
-        <div class="tweet-wrap"><a class="tweet-fallback" href="https://twitter.com/DeFiMinty/status/2026768839657029810" target="_blank">View post ↗</a><blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/DeFiMinty/status/2026768839657029810">Tweet</a></blockquote></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 14: AI Stack -->
-  <div class="d-slide no-img" data-slide="13">
-    <div class="d-badge">ai stack</div>
-    <div class="d-counter"><em>14</em> / 16</div>
-    <div class="d-content" style="max-width:1100px">
-      <div class="d-label">what we're actually using</div>
-      <div class="d-title">our stack<em>.</em></div>
-      <div class="d-stack-grid">
-        <div class="d-stack-col">
-          <div class="d-stack-name">brody</div>
-          <div class="d-stack-role">host</div>
-          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Claude Opus 4.6</strong> — architecture · research</div></div>
-          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Codex 5.3</strong> — staff engineer</div></div>
-          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Cursor / Cowork</strong> — building</div></div>
-          <div class="d-stack-item"><div class="d-bdot" style="margin-top:8px"></div><div><strong style="color:var(--cream)">Gemini</strong> · <strong style="color:var(--cream)">Wispr</strong> — search · dictation</div></div>
-        </div>
-        <div class="d-stack-col">
-          <div class="d-stack-name">grant</div>
-          <div class="d-stack-role">founder</div>
-          <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
-        </div>
-        <div class="d-stack-col">
-          <div class="d-stack-name">563</div>
-          <div class="d-stack-role">head of research</div>
-          <div style="font-size:18px;color:rgba(237,230,221,0.2);font-style:italic">pulling live on air</div>
+    <!-- SLIDE 2: NO IMG -->
+    <div class="d-slide no-img" data-slide="2">
+      <div class="d-badge">high signal</div>
+      <div class="d-counter"><em>03</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">episode 02 · feb 28 – mar 5, 2026</div>
+        <div class="d-title">the week ai got real<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Claude went to war, a 24 year old built a $5.5B fund, and the labs won't stop shipping</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Voice mode hits Claude Code, a solo dev rebuilds Palantir for free, and a new device kills your mic</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Plus: are AI agents actually replacing humans, or is the hype outrunning reality?</span></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- SLIDE 15: Over/Under -->
-  <div class="d-slide no-img" data-slide="14">
-    <div class="d-badge">overrated vs underrated</div>
-    <div class="d-counter"><em>15</em> / 16</div>
-    <div class="d-content" style="max-width:1000px">
-      <div class="d-label">hot takes</div>
-      <div class="d-title">over vs<br>under<em>.</em></div>
-      <div class="d-or-grid">
-        <div class="d-or-col ov">
-          <div class="d-or-label">🔴 overrated</div>
-          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Video gen models + platforms</div>
-          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Open Claw</div>
-          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Doomerism</div>
-          <div class="d-or-item"><span style="color:var(--red);font-weight:700">—</span>Gemini plugins</div>
+    <!-- SLIDE 3: HAS IMG -->
+    <div class="d-slide has-img" data-slide="3">
+      <div class="d-badge">high signal</div>
+      <div class="d-counter"><em>04</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">🔴 lead story</div>
+        <div class="d-title">claude went to war<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>US gov used Claude in the Iran strike - hours after allegedly blacklisting it</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>OpenAI forced to amend its DoD deal after public backlash</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Claude sign-ups spiked · OpenAI's dropped · Anthropic tracking $19B ARR</span></div>
         </div>
-        <div class="d-or-col un">
-          <div class="d-or-label">🟢 underrated</div>
-          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Perplexity investment research tool</div>
-          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Optimism as competitive advantage</div>
-          <div class="d-or-item"><span style="color:var(--sage);font-weight:700">—</span>Belief in yourself</div>
+      </div>
+      <div class="d-img-area">
+        <img id="disp-hs-1" src="" alt="">
+      </div>
+    </div>
+
+    <!-- SLIDE 4: HAS IMG -->
+    <div class="d-slide has-img" data-slide="4">
+      <div class="d-badge">high signal</div>
+      <div class="d-counter"><em>05</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">🔴 high signal</div>
+        <div class="d-title">this 24 year old is richer than you<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Leopold Aschenbrenner - ex-OpenAI researcher, now running $5.5B in equity across ~30 holdings</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Thesis: AI's real bottleneck isn't models - it's power. Long Vistra, Constellation, Core Scientific, IREN</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Fund surged 47% year one - seeded by Nat Friedman, Daniel Gross, and the Collison brothers</span></div>
+        </div>
+      </div>
+      <div class="d-img-area">
+        <img id="disp-hs-2" src="" alt="">
+      </div>
+    </div>
+
+    <!-- SLIDE 5: HAS IMG -->
+    <div class="d-slide has-img" data-slide="5">
+      <div class="d-badge">high signal</div>
+      <div class="d-counter"><em>06</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">🔴 high signal</div>
+        <div class="d-title">the labs keep shipping<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>OpenAI GPT-5.4 - reasoning, coding, agentic workflows in one frontier model. 1M token context. Computer use built in.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>GPT-5.3 variants: better conversational flow, reduced hallucinations, fewer refusals</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Google Gemini 3.1 Flash-Lite - $0.25/M input tokens, built for massive developer workloads</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Alibaba Qwen 3.5 series - open-source edge models outperforming proprietary on benchmarks. Apache 2.0.</span></div>
+        </div>
+      </div>
+      <div class="d-img-area">
+        <img id="disp-hs-3" src="" alt="">
+      </div>
+    </div>
+
+    <!-- SLIDE 6: TOOL SHED TRANSITION -->
+    <div class="d-slide transition-slide" data-slide="6">
+      <div class="d-badge">the tool shed</div>
+      <div class="d-counter"><em>07</em>/16</div>
+      <div class="d-content">
+        <div class="d-title">the tool shed<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>The builds, tools, and hardware worth your attention this week.</span></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- SLIDE 16: Wrap -->
-  <div class="d-slide no-img" data-slide="15">
-    <div class="d-badge">wrap up</div>
-    <div class="d-counter"><em>16</em> / 16</div>
-    <div class="d-content">
-      <div class="d-label">every friday · 10am est · blocmates.</div>
-      <div class="d-title">tap in<em>.</em></div>
-      <div class="d-bullets">
-        <div class="d-bullet"><div class="d-bdot"></div>Next week coming soon</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Find us at Blocmates</div>
-        <div class="d-bullet"><div class="d-bdot"></div>Only at blocmates<em style="color:var(--red)">.</em></div>
+    <!-- SLIDE 7: NO IMG -->
+    <div class="d-slide no-img" data-slide="7">
+      <div class="d-badge">the tool shed</div>
+      <div class="d-counter"><em>08</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">tool drop</div>
+        <div class="d-title">claude code speaks<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Voice mode is now live in Claude Code - dictate tasks directly into your agentic session</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Removes the keyboard bottleneck for complex multi-step prompts</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Biggest UX shift for non-technical builders since the initial launch</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
+    <!-- SLIDE 7: HAS IMG -->
+    <div class="d-slide has-img" data-slide="8">
+      <div class="d-badge">the tool shed</div>
+      <div class="d-counter"><em>09</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">build spotlight</div>
+        <div class="d-title">palantir for free<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Solo dev rebuilt the Iran strike as a 4D replay using only public OSINT + AI agents</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Flights, satellites, shipping data, GPS blackouts - synthesized in real time</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>One person. Free. Palantir-level. This is where AI tooling is heading.</span></div>
+        </div>
+      </div>
+      <div class="d-img-area">
+        <img id="disp-ts-1" src="" alt="">
+      </div>
+    </div>
+
+    <!-- SLIDE 8: HAS IMG WITH TWEET -->
+    <div class="d-slide has-img has-tweet" data-slide="9">
+      <div class="d-badge">the tool shed</div>
+      <div class="d-counter"><em>10</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">hardware drop</div>
+        <div class="d-title">kill the mic<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Devaillance Spectra 1 - portable device that emits an inaudible signal to block nearby microphones from capturing intelligible audio</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Detects and logs listening devices, runs entirely on-device - no cloud, no data leaving the room</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>$999 pre-order (refundable) · shipping H2 2026 - built for the AI surveillance era</span></div>
+        </div>
+      </div>
+      <div class="d-tweet-area">
+        <div class="tweet-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
+            <a href="https://twitter.com/aidaxbaradari/status/2028864606568067491"></a>
+          </blockquote>
+        </div>
+        <a href="https://x.com/aidaxbaradari/status/2028864606568067491" class="tweet-fallback">View on X</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: HAS IMG WITH TWEET -->
+    <div class="d-slide has-img has-tweet" data-slide="10">
+      <div class="d-badge">the tool shed</div>
+      <div class="d-counter"><em>11</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">tool drop</div>
+        <div class="d-title">google drive for agents<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Google Workspace CLI (gws) - one unified CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, and Admin</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>40+ agent skills with native MCP server support - point Claude or Gemini at it and let them work</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Dynamically built from Google's Discovery Service - auto-updates when new APIs ship</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>4,900 GitHub stars in 3 days. Open source. The agent infrastructure layer is forming fast.</span></div>
+        </div>
+      </div>
+      <div class="d-tweet-area">
+        <div class="tweet-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
+            <a href="https://twitter.com/addyosmani/status/2029372736267805081"></a>
+          </blockquote>
+        </div>
+        <a href="https://x.com/addyosmani/status/2029372736267805081" class="tweet-fallback">View on X</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: TRANSITION -->
+    <div class="d-slide transition-slide" data-slide="11">
+      <div class="d-badge">ai vs. reality</div>
+      <div class="d-counter"><em>12</em>/16</div>
+      <div class="d-content">
+        <div class="d-title">ai vs. reality<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>The hype says zero humans. The data says otherwise. Let's stress-test the narrative.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: HAS TWEET -->
+    <div class="d-slide has-img has-tweet" data-slide="12">
+      <div class="d-badge">ai vs. reality</div>
+      <div class="d-counter"><em>13</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">the claim</div>
+        <div class="d-title">the zero human lie<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Solo founders claiming $1.7M ARR with zero employees - AI agents running everything</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>An AI CEO named Felix ships products, manages agents, runs support at OpenClaw</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>The pitch: build a million-dollar company without hiring a single person</span></div>
+        </div>
+      </div>
+      <div class="d-tweet-area">
+        <div class="tweet-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
+            <a href="https://twitter.com/FelixCraftAI/status/2025280904088682857"></a>
+          </blockquote>
+        </div>
+        <a href="https://x.com/FelixCraftAI/status/2025280904088682857" class="tweet-fallback">View on X</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: NO IMG -->
+    <div class="d-slide no-img" data-slide="13">
+      <div class="d-badge">ai vs. reality</div>
+      <div class="d-counter"><em>14</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">the reality check</div>
+        <div class="d-title">agents are mid<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>95% of "AI agents" in 2026 are glorified chatbots with a for loop and an API key</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>They hallucinate, break silently, and cost more than the junior dev they replaced</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>The ones that actually work? Boring. IT tickets, data entry, onboarding flows. Not CEOs.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: NO IMG -->
+    <div class="d-slide no-img" data-slide="14">
+      <div class="d-badge">ai vs. reality</div>
+      <div class="d-counter"><em>15</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">the real play</div>
+        <div class="d-title">the human in the loop wins<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Every "zero employee" company quietly has a human fixing what the agents break</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>The real alpha: one person + AI tools outperforms a team of 10 without them</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Stop chasing full automation. Start asking: what can I do now that was impossible last month?</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: NO IMG - OUTRO -->
+    <div class="d-slide no-img" data-slide="15">
+      <div class="d-badge">tap in</div>
+      <div class="d-counter"><em>16</em>/16</div>
+      <div class="d-content">
+        <div class="d-label">every friday · 10am est · blocmates.</div>
+        <div class="d-title">tap in<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>AI went from chatbot to instrument of state power - and a 24-year-old built a $5.5B fund betting on what powers it</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>The tools are real, the agents are early, and the infrastructure layer is just getting started</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Subscribe at blocmates.com for the weekly breakdown<em>.</em></span></div>
+        </div>
+      </div>
+    </div>
 </div><!-- end displayPanel -->
 
 <!-- Nav dots -->
@@ -871,32 +868,23 @@ body { background:var(--black); color:var(--cream); font-family:'Space Grotesk',
   <button class="dot" onclick="goSlide(15)"></button>
 </div>
 
-</div><!-- end main -->
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLB()">
-  <button class="lb-x" onclick="closeLB()">✕</button>
-  <img class="lb-img" id="lbImg" src="">
-</div>
-
 <script>
 // ── Shared image store ──
 const imgs = {};
 const links = {};
 const defaultImages = {
-  introVisual: '/app/genesis/images/PNG%20image%205.png',
-  opportunity: '/app/genesis/images/PNG%20image.png',
-  anthropic: '/app/genesis/images/PNG%20image%202.png',
-  nvidia: '/app/genesis/images/PNG%20image%203.png',
-  nvidia2: '/app/genesis/images/PNG%20image%206.png',
-  openairaise: '/app/genesis/images/PNG%20image%208.png',
-  citrini: '/app/genesis/images/PNG%20image%204.png'
+  'disp-hs-img': 'images/image.png',
+  'disp-hs-1': 'images/image2.png',
+  'disp-hs-2': 'images/image3.png',
+  'disp-hs-3': 'images/image4.png',
+  'disp-ts-1': 'images/image5.png'
 };
 
 // ── Mode ──
 let mode = 'notes';
 function setMode(m) {
   mode = m;
+  document.body.classList.toggle('display-active', m === 'display');
   document.getElementById('notesPanel').classList.toggle('hidden', m !== 'notes');
   document.getElementById('displayPanel').classList.toggle('active', m === 'display');
   document.getElementById('dotNav').classList.toggle('show', m === 'display');
@@ -925,7 +913,7 @@ function navTo(id, el) {
   el.classList.add('active');
 }
 const ns = document.getElementById('notesScroll');
-const sIds = ['n-intro','n-events','n-cheatcode','n-stack','n-overrated','n-wrapup'];
+const sIds = ['n-intro','n-highsignal','n-tips','n-seg4','n-tapin'];
 ns.addEventListener('scroll', () => {
   let cur = sIds[0];
   sIds.forEach(id => { const el = document.getElementById(id); if (el && ns.scrollTop >= el.offsetTop - 100) cur = id; });
@@ -946,8 +934,9 @@ function loadImg(input, key) {
       slot.classList.add('filled');
       slot.innerHTML = '<div class="n-img-preview"><img src="' + src + '" onclick="openLB(\'' + key + '\')"><button class="n-img-rm" onclick="removeImg(\'' + key + '\')">✕ remove</button></div>';
     }
-    // Display panel image
-    const dImg = document.getElementById('dimg-' + key);
+    // Display panel image - try direct ID first
+    let dImg = document.getElementById(key);
+    if (!dImg) dImg = document.getElementById('dimg-' + key);
     const dPh = document.getElementById('dip-' + key);
     if (dImg) { dImg.src = src; dImg.style.display = 'block'; }
     if (dPh) dPh.style.display = 'none';
@@ -963,7 +952,8 @@ function removeImg(key) {
     slot.classList.remove('filled');
     slot.innerHTML = '<label class="n-upload-label"><div class="ico">🖼</div><div>Click to add image</div><span class="hint">'+(hints[key]||'')+'</span><input type="file" accept="image/*" onchange="loadImg(this,\''+key+'\')"></label>';
   }
-  const dImg = document.getElementById('dimg-' + key);
+  let dImg = document.getElementById(key);
+  if (!dImg) dImg = document.getElementById('dimg-' + key);
   const dPh = document.getElementById('dip-' + key);
   if (dImg) { dImg.src = ''; dImg.style.display = 'none'; }
   if (dPh) dPh.style.display = 'flex';
@@ -978,7 +968,9 @@ function setCategoryImage(key, src) {
     slot.innerHTML = '<div class="n-img-preview"><img src="' + src + '" onclick="openLB(\'' + key + '\')"><button class="n-img-rm" onclick="removeImg(\'' + key + '\')">✕ remove</button></div>';
   }
 
-  const dImg = document.getElementById('dimg-' + key);
+  // Try direct element ID first (display panel uses id="disp-hs-1" etc.)
+  let dImg = document.getElementById(key);
+  if (!dImg) dImg = document.getElementById('dimg-' + key);
   const dPh = document.getElementById('dip-' + key);
   if (dImg) { dImg.src = src; dImg.style.display = 'block'; }
   if (dPh) dPh.style.display = 'none';
