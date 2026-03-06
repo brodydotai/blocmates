@@ -5,8 +5,12 @@
       "destination": "/app/blocmates-show-prep.html"
     },
     {
+      "source": "/images/:path*",
+      "destination": "/app/images/:path*"
+    },
+    {
       "source": "/favicon.ico",
-      "destination": "/app/genesis/images/PNG%20image.png"
+      "destination": "/app/images/image.png"
     }
   ]
 }
