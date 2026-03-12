@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>blocmates. — episode 02</title>
+<title>blocmates. — episode 03</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -317,14 +317,14 @@ body.display-active .topbar:hover {
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-thumb { background:rgba(237,230,221,0.08); border-radius:2px; }
 </style>
-</head>
+
 <body>
 
 <!-- ════════ TOPBAR ════════ -->
 <div class="topbar">
   <div style="display:flex;align-items:center">
     <div class="logo">blocmates<em>.</em></div>
-    <div class="ep-label">episode 02</div>
+    <div class="ep-label">episode 03</div>
   </div>
   <div class="mode-toggle">
     <button class="mode-btn active" id="notesBtn" onclick="setMode('notes')">📝 Notes</button>
@@ -349,15 +349,16 @@ body.display-active .topbar:hover {
     <div class="sb-lbl">segments</div>
     <div class="nav-it active" data-s="n-highsignal" onclick="navTo('n-highsignal',this)"><span class="nav-n">01</span>high signal</div>
     <div class="nav-it" data-s="n-tips" onclick="navTo('n-tips',this)"><span class="nav-n">02</span>the tool shed</div>
-    <div class="nav-it" data-s="n-seg4" onclick="navTo('n-seg4',this)"><span class="nav-n">03</span>ai vs. reality</div>
-    <div class="nav-it" data-s="n-tapin" onclick="navTo('n-tapin',this)"><span class="nav-n">04</span>tap in</div>
+    <div class="nav-it" data-s="n-seg4" onclick="navTo('n-seg4',this)"><span class="nav-n">03</span>dissecting polsia</div>
+    <div class="nav-it" data-s="n-seg5" onclick="navTo('n-seg5',this)"><span class="nav-n">04</span>money talks</div>
+    <div class="nav-it" data-s="n-tapin" onclick="navTo('n-tapin',this)"><span class="nav-n">05</span>tap in</div>
     <div class="nav-div"></div>
     <div class="sb-lbl">timing</div>
     <div style="padding:0 16px">
-      <div class="t-row"><span>intro</span><span class="t-val">~15 min</span></div>
       <div class="t-row"><span>high signal</span><span class="t-val">~15 min</span></div>
       <div class="t-row"><span>the tool shed</span><span class="t-val">~10 min</span></div>
-      <div class="t-row"><span>ai vs. reality</span><span class="t-val">~10 min</span></div>
+      <div class="t-row"><span>dissecting polsia</span><span class="t-val">~15 min</span></div>
+      <div class="t-row"><span>money talks</span><span class="t-val">~10 min</span></div>
       <div class="t-row"><span>tap in</span><span class="t-val">~5 min</span></div>
       <div class="nav-div"></div>
       <div class="t-row"><span>total</span><span class="t-tot">~55 min</span></div>
@@ -366,27 +367,6 @@ body.display-active .topbar:hover {
 
   <!-- Notes scroll -->
   <div class="notes-scroll" id="notesScroll">
-
-    <!-- 01 INTRO -->
-    <div class="n-section" id="n-intro" draggable="true" ondragstart="dragStart(event,'n-intro')" ondragover="dragOver(event)" ondrop="drop(event,'n-intro')" ondragleave="dragLeave(event)">
-      <div class="n-sec-head">
-        <span class="drag-handle">⠿</span>
-        <span class="n-sec-num">01</span>
-        <span class="n-sec-title">introduction</span>
-        <div class="n-sec-line"></div>
-        <span class="n-sec-time">~15 min</span>
-      </div>
-      <div class="n-grid-2">
-        <div class="n-card">
-          <div class="n-block-label">episode theme</div>
-          <div class="n-editable" contenteditable="false">AI went kinetic this week. Claude was used in a real US military operation against Iran — hours after it was allegedly blacklisted from DoD. The line between chatbot and weapon just blurred in real time.</div>
-        </div>
-        <div class="n-card">
-          <div class="n-block-label">community pulse</div>
-          <div class="n-editable" contenteditable="false">Ejaaz (@cryptopunk7213) had the most viral AI content this week — 8M+ views on the 24-year-old trader breakdown, 1.28M+ on NVIDIA in farming. The community is watching the infrastructure trade, not just the models.</div>
-        </div>
-      </div>
-    </div>
 
     <!-- 02 HIGH SIGNAL -->
     <div class="n-section" id="n-highsignal" draggable="true" ondragstart="dragStart(event,'n-highsignal')" ondragover="dragOver(event)" ondrop="drop(event,'n-highsignal')" ondragleave="dragLeave(event)">
@@ -399,46 +379,54 @@ body.display-active .topbar:hover {
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">🔴 LEAD — Claude went to war <span class="tag ts">geopolitics</span></div>
-        <div class="n-editable" contenteditable="false">US gov used Anthropic's Claude in the Iran strike — hours after allegedly blacklisting it. OpenAI scrambled to amend a "sloppy" DoD deal after public backlash. Claude sign-ups spiked. OpenAI's tanked. Anthropic now tracking toward $19B ARR (up from $5B weeks ago).</div>
+        <div class="n-card-title">🔴 LEAD — Oracle's $108B debt crisis <span class="tag ts">layoffs</span></div>
+        <div class="n-editable" contenteditable="false">Oracle planning up to 30,000 layoffs (12-18% of workforce) as AI data center spending creates a cash crisis. Total debt hit $108.1B after an $18B bond issuance. Analysts warn of asset sales (Cerner) to stay afloat. Private credit market showing cracks — banks pulling back from Oracle-linked data center lending. Somebody built a job loss dashboard to track the damage in real time.</div>
         <div class="n-img-slot" id="slot-hs-1">
           <label class="n-upload-label" for="img-hs-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-hs-1" accept="image/*" onchange="loadImg('slot-hs-1','disp-hs-1',this)">
+          <input type="file" id="img-hs-1" accept="image/*" onchange="loadImg(this,'disp-hs-1')">
         </div>
         <div class="n-link-area">
-          <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-iran" type="url" value="https://x.com/slow_developer/status/2029153632046719305" oninput="updateLink('iran',this.value)">
+          <div class="n-link-lbl">links</div>
+          <input class="n-link-inp" type="url" value="https://fortune.com/2026/03/09/oracle-earnings-layoffs-debt-cloud/">
         </div>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Block cuts 4,000 jobs; Gemini lawsuit <span class="tag ts">layoffs</span></div>
-        <div class="n-editable" contenteditable="false">Jack Dorsey cuts 4,000 at Block citing AI advances as the structural driver — negotiation, support, back-office compressing faster than expected. Same week: Google faces lawsuit after Gemini encouraged a user to kill himself. The stakes of deployment just got concrete.</div>
+        <div class="n-card-title">Microsoft launches Copilot Cowork <span class="tag ts">release</span></div>
+        <div class="n-editable" contenteditable="false">Satya Nadella announced Copilot Cowork — hand off a task and it builds a plan, then executes across M365 apps within enterprise security/governance. Powered by Anthropic's Claude Sonnet models. $30/user/month. Research preview now, broader rollout late March. This is basically corporate-compliant Cowork — the enterprise wrapper around agentic AI.</div>
         <div class="n-img-slot" id="slot-hs-2">
           <label class="n-upload-label" for="img-hs-2"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-hs-2" accept="image/*" onchange="loadImg('slot-hs-2','disp-hs-2',this)">
+          <input type="file" id="img-hs-2" accept="image/*" onchange="loadImg(this,'disp-hs-2')">
         </div>
         <div class="n-link-area">
           <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-block" type="url" value="https://www.theguardian.com/technology/2026/feb/27/block-ai-layoffs-jack-dorsey" oninput="updateLink('block',this.value)">
-        </div>
-      </div>
-
-      <div class="n-card">
-        <div class="n-card-title">Frontier model roundup <span class="tag ts">models</span></div>
-        <div class="n-editable" contenteditable="false">OpenAI drops GPT-5.4 and admits prior models were "cringe." A legendary mathematician uses Claude Opus 4.6 to solve a major conjecture. Claude Code rolls out voice note capability. The pace of meaningful iteration is not slowing down. SaaSpocalypse: SaaS in, SaaS out — AI is eating the stack.</div>
-        <div class="n-link-area">
-          <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-models" type="url" value="https://techcrunch.com/2026/03/01/saas-in-saas-out-heres-whats-driving-the-saaspocalypse/" oninput="updateLink('models',this.value)">
+          <input class="n-link-inp" type="url" value="https://x.com/satyanadella/status/2030992877665583440">
         </div>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Also worth mentioning <span class="tag tw">misc</span></div>
-        <div class="n-editable" contenteditable="false">UK commits £40M research lab for AI breakthroughs. Palantir spending millions to block a former exec's NYC congressional bid — AI's political footprint is expanding fast. Musician Holly Herndon builds an AI clone of her own voice anyone can use to sing like her.</div>
+        <div class="n-card-title">Perplexity Personal Computer <span class="tag ts">release</span></div>
+        <div class="n-editable" contenteditable="false">Perplexity dropped two products at their first dev conference. "Perplexity Computer" runs in the cloud as a general-purpose digital worker. "Personal Computer" runs locally on a Mac mini with full file/app access. Positioned as a safer OpenClaw alternative — all actions confirmed by user, built-in audit trail. The agentic race just got another serious contender.</div>
+        <div class="n-img-slot" id="slot-hs-3">
+          <label class="n-upload-label" for="img-hs-3"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-hs-3" accept="image/*" onchange="loadImg(this,'disp-hs-3')">
+        </div>
         <div class="n-link-area">
           <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-misc" type="url" value="https://www.scientificamerican.com/article/experimental-composer-holly-herndon-built-an-ai-voice-clone-that-anyone-can/" oninput="updateLink('misc',this.value)">
+          <input class="n-link-inp" type="url" value="https://www.axios.com/2026/03/11/perplexity-personal-computer-mac">
+        </div>
+      </div>
+
+      <div class="n-card">
+        <div class="n-card-title">AI goes political — data center prohibition <span class="tag tw">politics</span></div>
+        <div class="n-editable" contenteditable="false">Progressives on Capitol Hill gaining traction on a federal data center moratorium. Sanders preparing legislation. Georgia, Vermont, Virginia, New York all considering construction freezes. Rising electricity costs from AI boom becoming a midterm election wedge issue. This is AI leaving the tech bubble and entering mainstream politics.</div>
+        <div class="n-img-slot" id="slot-hs-4">
+          <label class="n-upload-label" for="img-hs-4"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-hs-4" accept="image/*" onchange="loadImg(this,'disp-hs-4')">
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://www.eenews.net/articles/data-center-moratorium-gains-traction-among-hill-progressives/">
         </div>
       </div>
     </div>
@@ -454,92 +442,106 @@ body.display-active .topbar:hover {
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Claude Code voice notes <span class="tag tt">tool</span></div>
-        <div class="n-editable" contenteditable="false">Voice mode is now live in Claude Code. You can dictate tasks directly into your agentic session — no keyboard needed for complex multi-step prompts. This is the biggest UX shift for non-technical users since the launch. Massive for people building with Cowork.</div>
-        <div class="n-link-area">
-          <div class="n-link-lbl">link</div>
-          <input class="n-link-inp" id="nl-voicenote" type="url" value="https://techcrunch.com/2026/03/03/claude-code-rolls-out-a-voice-mode-capability/" oninput="updateLink('voicenote',this.value)">
-        </div>
-      </div>
-
-      <div class="n-card">
-        <div class="n-card-title">God's Eye — Palantir for free <span class="tag tw">build</span></div>
-        <div class="n-editable" contenteditable="false">One solo dev used public OSINT + AI agents to rebuild the Iran strike as a 4D time-lapse replay. Flights, satellites, shipping, GPS blackouts — all synthesized in real time. Built by one person. Free. This is what the barrier to building with AI actually looks like now.</div>
+        <div class="n-card-title">Cloudflare crawl API <span class="tag tt">tool</span></div>
+        <div class="n-editable" contenteditable="false">Cloudflare launched a /crawl endpoint in open beta — one API call crawls an entire website. Give it a URL and it follows links, sitemaps, and pages up to configurable depth. Returns HTML, Markdown, or JSON. Crawl jobs run async for up to 7 days, results stored 14 days. Free and paid Workers plans. Respects robots.txt. This is the simplest web scraping tool that's ever existed.</div>
         <div class="n-img-slot" id="slot-ts-1">
           <label class="n-upload-label" for="img-ts-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-ts-1" accept="image/*" onchange="loadImg('slot-ts-1','disp-ts-1',this)">
+          <input type="file" id="img-ts-1" accept="image/*" onchange="loadImg(this,'disp-ts-1')">
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://developers.cloudflare.com/browser-rendering/rest-api/crawl-endpoint/">
         </div>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Devaillance Spectra 1 <span class="tag tt">hardware</span></div>
-        <div class="n-editable" contenteditable="false">Portable device that emits an inaudible signal to prevent nearby microphones from capturing intelligible audio. Detects and logs listening devices. Runs entirely on-device — no cloud, no data leaving the room. Aimed squarely at AI-era surveillance. $999 pre-order (refundable), shipping H2 2026.</div>
+        <div class="n-card-title">Anthropic skills guide <span class="tag tt">resource</span></div>
+        <div class="n-editable" contenteditable="false">Anthropic released the complete 32-page guide to building skills for Claude. Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Upload via Settings > Capabilities > Skills. Official repo at github.com/anthropics/skills has production examples. This is the playbook for making Claude actually useful for your specific workflows.</div>
         <div class="n-img-slot" id="slot-ts-2">
           <label class="n-upload-label" for="img-ts-2"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-ts-2" accept="image/*" onchange="loadImg('slot-ts-2','disp-ts-2',this)">
+          <input type="file" id="img-ts-2" accept="image/*" onchange="loadImg(this,'disp-ts-2')">
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf">
         </div>
       </div>
 
       <div class="try-box">
         <div class="try-title">try this week</div>
         <div class="try-chips">
-          <span class="try-chip">Claude Code voice mode</span>
-          <span class="try-chip">Perplexity OSINT research</span>
-          <span class="try-chip">Devaillance Spectra 1</span>
+          <span class="try-chip">Cloudflare crawl API</span>
+          <span class="try-chip">Build a Claude skill</span>
         </div>
       </div>
     </div>
 
-    <!-- 04 ALPHA DROP -->
+    <!-- 04 DISSECTING POLSIA -->
     <div class="n-section" id="n-seg4" draggable="true" ondragstart="dragStart(event,'n-seg4')" ondragover="dragOver(event)" ondrop="drop(event,'n-seg4')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">04</span>
-        <span class="n-sec-title">alpha drop</span>
+        <span class="n-sec-title">dissecting polsia</span>
         <div class="n-sec-line"></div>
-        <span class="n-sec-time">~10 min</span>
+        <span class="n-sec-time">~15 min</span>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">The 24-year-old who turned $225M → $5.5B <span class="tag ts">trade breakdown</span></div>
-        <div class="n-editable" contenteditable="false">Ejaaz (@cryptopunk7213) broke this down — 8M+ views, 18K+ likes, most viral AI investing content of the week. Key positions: $885M in Bloom Energy (portable turbines for AI data centers), $700M in CoreWeave (GPU hosting), shorted Infosys hard (betting Claude Code/Codex replaces outsourced IT). Fund up $1.5B in 3 months, +35% last quarter, outpaced S&P 500 8x in H1.</div>
-        <div class="n-img-slot" id="slot-ad-1">
-          <label class="n-upload-label" for="img-ad-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-ad-1" accept="image/*" onchange="loadImg('slot-ad-1','disp-ad-1',this)">
+        <div class="n-card-title">What Polsia actually is <span class="tag ts">overview</span></div>
+        <div class="n-editable" contenteditable="false">Sign up for $50/mo. Polsia spins up autonomous agents — engineering (web server, GitHub, database), marketing (Twitter, email, Meta Ads, UGC), and operations. They plan, code, and run the company 24/7. Polsia takes 20% of revenue. 1,100+ companies running simultaneously. Solo founder Ben Cera hit $1M ARR in about one month. Not a copilot — a full replacement for the team.</div>
+        <div class="n-img-slot" id="slot-pol-1">
+          <label class="n-upload-label" for="img-pol-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-pol-1" accept="image/*" onchange="loadImg(this,'disp-pol-1')">
         </div>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">The energy infrastructure thesis <span class="tag tw">macro</span></div>
-        <div class="n-editable" contenteditable="false">The big realization: the AI trade isn't about GPUs anymore, it's about the power behind them. Energy is the bottleneck. Also buying Bitcoin miners (Cipher, Bitdeer) to repurpose for AI data centers. Owns 10% of Core Scientific. Added $300M to CoreWeave. Dumped large NVIDIA/Intel stakes. This is the next leg of the AI infrastructure play.</div>
+        <div class="n-card-title">Interview questions <span class="tag tw">talking points</span></div>
+        <div class="n-editable" contenteditable="false">• What was your ah-ha moment with AI?
+• Explain Polsia like you're telling a friend, not pitching a VC. Sign up, then what?
+• The 80/20 framework — what does "creative director of an AI company" mean day-to-day?
+• Pick one company Polsia built autonomously — walk through start to finish
+• Why full autonomy over copilots? Most of the industry builds assistants. You built a replacement.
+• When it breaks — the honest version. What does failure look like when you're the only human?
+• The skepticism question — self-reported revenue, AI companies selling to AI companies. Is any of this real?
+• Where is AI headed in 2-3 years? Does every company become one person?
+• The thing nobody's talking about — what risk or shift is underappreciated right now?</div>
       </div>
     </div>
 
-    <!-- 05 HOT TAKES -->
+    <!-- 05 MONEY TALKS -->
     <div class="n-section" id="n-seg5" draggable="true" ondragstart="dragStart(event,'n-seg5')" ondragover="dragOver(event)" ondrop="drop(event,'n-seg5')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
         <span class="drag-handle">⠿</span>
         <span class="n-sec-num">05</span>
-        <span class="n-sec-title">hot takes</span>
+        <span class="n-sec-title">money talks</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~10 min</span>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Apple won by not competing <span class="tag tw">hot take</span></div>
-        <div class="n-editable" contenteditable="false">Ejaaz thread, 1.28M+ views: Apple "failed" at frontier models but is positioned perfectly for the device layer. Paid $1B for Gemini while rivals burned trillions. 2.5B devices, $150B cash, M5 chips enabling local AI agents. On-device = cheaper, private, personal vs. $200/mo subscriptions. The winner in AI might be the one who didn't try to build the model.</div>
+        <div class="n-card-title">LeCun's $1B bet against LLMs <span class="tag ts">funding</span></div>
+        <div class="n-editable" contenteditable="false">Yann LeCun left Meta and raised $1.03B for AMI Labs at $3.5B pre-money — Europe's largest-ever seed deal. Building "world models" based on JEPA (Joint Embedding Predictive Architecture). The thesis: LLMs are dead, AI needs to learn from reality, not language. Backed by Bezos Expeditions, Mark Cuban, Nvidia. HQ in Paris with offices in NYC, Montreal, Singapore. Four months from founding to billion-dollar raise.</div>
+        <div class="n-img-slot" id="slot-mt-1">
+          <label class="n-upload-label" for="img-mt-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-mt-1" accept="image/*" onchange="loadImg(this,'disp-mt-1')">
+        </div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/">
+        </div>
       </div>
 
-      <div class="or-pair">
-        <div class="or-box ov"><div class="or-box-title">🔴 overrated</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>Frontier model arms race as the primary value driver</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>Worrying about which lab "wins"</div>
-          <div class="or-item"><span class="or-dash-ov">—</span>SaaS subscriptions that an AI agent can replace</div>
+      <div class="n-card">
+        <div class="n-card-title">Murati + Nvidia + Replit: follow the cash <span class="tag tw">deals</span></div>
+        <div class="n-editable" contenteditable="false">Mira Murati's Thinking Machines Lab locked in a gigawatt-scale Nvidia deal — deploying Vera Rubin GPUs for frontier model training, targeted 2027. Nvidia made a "significant investment" on top. Meanwhile Replit tripled its valuation to $9B with a $400M Series D in 6 months. 150K paying customers, $240M revenue in 2025, targeting $1B run-rate by end of 2026. Georgian Partners led. Shaq and Jared Leto are investors.</div>
+        <div class="n-img-slot" id="slot-mt-2">
+          <label class="n-upload-label" for="img-mt-2"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
+          <input type="file" id="img-mt-2" accept="image/*" onchange="loadImg(this,'disp-mt-2')">
         </div>
-        <div class="or-box un"><div class="or-box-title">🟢 underrated</div>
-          <div class="or-item"><span class="or-dash-un">—</span>Energy + infrastructure as the AI trade</div>
-          <div class="or-item"><span class="or-dash-un">—</span>On-device AI (Apple, M5 chips)</div>
-          <div class="or-item"><span class="or-dash-un">—</span>NVIDIA's dominance outside data centers (farming: 80% market share)</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">links</div>
+          <input class="n-link-inp" type="url" value="https://blogs.nvidia.com/blog/nvidia-thinking-machines-lab/">
         </div>
       </div>
     </div>
@@ -554,9 +556,9 @@ body.display-active .topbar:hover {
         <span class="n-sec-time">~5 min</span>
       </div>
       <div class="wu-list">
-        <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>AI didn't just automate a job this week — it flew a mission. That changes the conversation.</div>
-        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>The energy + infrastructure trade is the most interesting bet in markets right now. Follow the power.</div>
-        <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Subscribe at blocmates.com — tap in every Friday at 10am EST.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>The AI infrastructure buildout is creating winners and casualties at the same speed — Oracle is bleeding, Murati is building, and LeCun is betting against everything.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>Full autonomy vs. copilots is the defining question of 2026. Polsia says replace the team. The market is still deciding.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Subscribe at blocmates.com for the weekly breakdown.</div>
       </div>
     </div>
 
@@ -570,279 +572,316 @@ body.display-active .topbar:hover {
     <!-- SLIDE 0: INTRO HERO -->
     <div class="d-slide intro-hero" data-slide="0">
       <div class="d-badge">blocmates.</div>
-      <div class="d-counter"><em>01</em>/16</div>
+      <div class="d-counter"><em>01</em> / 16</div>
       <div class="d-content">
-        <div class="d-label">episode 02</div>
-        <div class="d-title">ai went kinetic<em>.</em></div>
+        <div class="d-label">episode 03</div>
+        <div class="d-title">follow the money<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Claude was used in a live military operation this week</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>This 24 year old has more money than you</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Our take on fresh tools</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Oracle is drowning in debt and AI is now a political weapon</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Meet the guy whose AI runs 1,100 companies while he sleeps</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>$2B+ in new AI funding dropped this week alone</span></div>
         </div>
       </div>
       <div class="d-intro-right">
         <div class="pfp-duo">
           <div class="pfp-card">
-            <img src="images/host.png" alt="brody">
+            <img src="images/host.png" style="width:224px;height:224px;border-radius:50%;object-fit:cover">
             <div class="pfp-name">brody</div>
             <div class="pfp-role">host</div>
           </div>
           <div class="pfp-card">
-            <img src="images/cohost.png" alt="grant">
-            <div class="pfp-name">grant</div>
-            <div class="pfp-role">co-host</div>
+            <img src="images/guest.png" style="width:224px;height:224px;border-radius:50%;object-fit:cover">
+            <div class="pfp-name">ben cera</div>
+            <div class="pfp-role">guest</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 1: IMAGE ONLY -->
-    <div class="d-slide image-only" data-slide="1">
-      <div class="d-badge">high signal</div>
-      <div class="d-counter"><em>02</em>/16</div>
-      <div class="d-img-area">
-        <img id="disp-hs-img" src="images/image.png" alt="">
-      </div>
-    </div>
-
-    <!-- SLIDE 2: NO IMG -->
-    <div class="d-slide no-img" data-slide="2">
-      <div class="d-badge">high signal</div>
-      <div class="d-counter"><em>03</em>/16</div>
+    <!-- SLIDE 1: HIGH SIGNAL TRANSITION -->
+    <div class="d-slide no-img transition-slide" data-slide="1">
+      <div class="d-counter"><em>02</em> / 16</div>
       <div class="d-content">
-        <div class="d-label">episode 02 · feb 28 – mar 5, 2026</div>
-        <div class="d-title">the week ai got real<em>.</em></div>
+        <div class="d-label">SEGMENT 02</div>
+        <div class="d-title">high signal<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Claude went to war, a 24 year old built a $5.5B fund, and the labs won't stop shipping</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Voice mode hits Claude Code, a solo dev rebuilds Palantir for free, and a new device kills your mic</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Plus: are AI agents actually replacing humans, or is the hype outrunning reality?</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>This week's most important AI and crypto signal events.</span></div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 3: HAS IMG -->
-    <div class="d-slide has-img" data-slide="3">
-      <div class="d-badge">high signal</div>
-      <div class="d-counter"><em>04</em>/16</div>
+    <!-- SLIDE 2: ORACLE -->
+    <div class="d-slide has-img" data-slide="2">
+      <div class="d-badge">HIGH SIGNAL</div>
+      <div class="d-counter"><em>03</em> / 16</div>
       <div class="d-content">
         <div class="d-label">🔴 lead story</div>
-        <div class="d-title">claude went to war<em>.</em></div>
+        <div class="d-title">oracle is bleeding<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>US gov used Claude in the Iran strike - hours after allegedly blacklisting it</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>OpenAI forced to amend its DoD deal after public backlash</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Claude sign-ups spiked · OpenAI's dropped · Anthropic tracking $19B ARR</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>$108B in debt after an $18B bond issuance — cash flow negative for years</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Up to 30,000 layoffs planned as AI data center spending eats the balance sheet</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Banks pulling back from Oracle-linked lending — private credit market cracking</span></div>
         </div>
       </div>
-      <div class="d-img-area">
-        <img id="disp-hs-1" src="images/image2.png" alt="">
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-hs-1" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-hs-1">
+          <div class="p-ico">🖼</div>
+          <div>oracle debt / layoff tracker</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
       </div>
     </div>
 
-    <!-- SLIDE 4: HAS IMG -->
+    <!-- SLIDE 3: COPILOT COWORK -->
+    <div class="d-slide has-img" data-slide="3">
+      <div class="d-badge">HIGH SIGNAL</div>
+      <div class="d-counter"><em>04</em> / 16</div>
+      <div class="d-content">
+        <div class="d-label">🔴 high signal</div>
+        <div class="d-title">copilot cowork<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Microsoft's agentic AI for M365 — hand off a task, it plans and executes across apps</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Powered by Anthropic's Claude Sonnet — $30/user/month enterprise tier</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Corporate-compliant Cowork — same concept, wrapped in security and governance</span></div>
+        </div>
+      </div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-hs-2" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-hs-2">
+          <div class="p-ico">🖼</div>
+          <div>copilot cowork screenshot</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: PERPLEXITY PC -->
     <div class="d-slide has-img" data-slide="4">
-      <div class="d-badge">high signal</div>
-      <div class="d-counter"><em>05</em>/16</div>
+      <div class="d-badge">HIGH SIGNAL</div>
+      <div class="d-counter"><em>05</em> / 16</div>
       <div class="d-content">
         <div class="d-label">🔴 high signal</div>
-        <div class="d-title">this 24 year old is richer than you<em>.</em></div>
+        <div class="d-title">perplexity goes local<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Leopold Aschenbrenner - ex-OpenAI researcher, now running $5.5B in equity across ~30 holdings</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Thesis: AI's real bottleneck isn't models - it's power. Long Vistra, Constellation, Core Scientific, IREN</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Fund surged 47% year one - seeded by Nat Friedman, Daniel Gross, and the Collison brothers</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Two new products: cloud-based Computer and locally-run Personal Computer</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Personal Computer runs on a Mac mini with full file and app access</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Positioned as safer than OpenClaw — user confirms every action, built-in audit trail</span></div>
         </div>
       </div>
-      <div class="d-img-area">
-        <img id="disp-hs-2" src="images/image3.png" alt="">
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-hs-3" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-hs-3">
+          <div class="p-ico">🖼</div>
+          <div>perplexity personal computer</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
       </div>
     </div>
 
-    <!-- SLIDE 5: HAS IMG -->
+    <!-- SLIDE 5: DATA CENTERS -->
     <div class="d-slide has-img" data-slide="5">
-      <div class="d-badge">high signal</div>
-      <div class="d-counter"><em>06</em>/16</div>
+      <div class="d-badge">HIGH SIGNAL</div>
+      <div class="d-counter"><em>06</em> / 16</div>
       <div class="d-content">
         <div class="d-label">🔴 high signal</div>
-        <div class="d-title">the labs keep shipping<em>.</em></div>
+        <div class="d-title">ai goes political<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>OpenAI GPT-5.4 - reasoning, coding, agentic workflows in one frontier model. 1M token context. Computer use built in.</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>GPT-5.3 variants: better conversational flow, reduced hallucinations, fewer refusals</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Google Gemini 3.1 Flash-Lite - $0.25/M input tokens, built for massive developer workloads</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Alibaba Qwen 3.5 series - open-source edge models outperforming proprietary on benchmarks. Apache 2.0.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Progressives push federal data center moratorium — Sanders preparing legislation</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Georgia, Vermont, Virginia, New York all considering construction freezes</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Rising electricity costs from AI becoming a midterm election wedge issue</span></div>
         </div>
       </div>
-      <div class="d-img-area">
-        <img id="disp-hs-3" src="images/image4.png" alt="">
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-hs-4" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-hs-4">
+          <div class="p-ico">🖼</div>
+          <div>data center moratorium visual</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
       </div>
     </div>
 
     <!-- SLIDE 6: TOOL SHED TRANSITION -->
-    <div class="d-slide transition-slide" data-slide="6">
-      <div class="d-badge">the tool shed</div>
-      <div class="d-counter"><em>07</em>/16</div>
+    <div class="d-slide no-img transition-slide" data-slide="6">
+      <div class="d-badge">THE TOOL SHED</div>
+      <div class="d-counter"><em>07</em> / 16</div>
       <div class="d-content">
+        <div class="d-label">SEGMENT 03</div>
         <div class="d-title">the tool shed<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>The builds, tools, and hardware worth your attention this week.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Tools, APIs, and resources worth adding to your stack this week.</span></div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 7: NO IMG -->
-    <div class="d-slide no-img" data-slide="7">
-      <div class="d-badge">the tool shed</div>
-      <div class="d-counter"><em>08</em>/16</div>
+    <!-- SLIDE 7: CLOUDFLARE -->
+    <div class="d-slide has-img" data-slide="7">
+      <div class="d-badge">THE TOOL SHED</div>
+      <div class="d-counter"><em>08</em> / 16</div>
       <div class="d-content">
         <div class="d-label">tool drop</div>
-        <div class="d-title">claude code speaks<em>.</em></div>
+        <div class="d-title">scrape anything<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Voice mode is now live in Claude Code - dictate tasks directly into your agentic session</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Removes the keyboard bottleneck for complex multi-step prompts</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Biggest UX shift for non-technical builders since the initial launch</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Cloudflare's /crawl API — one call crawls an entire website, returns Markdown or JSON</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Async jobs run up to 7 days, results stored 14 days — free on Workers plan</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Simplest web scraping tool that's ever existed — open beta now</span></div>
+        </div>
+      </div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-ts-1" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-ts-1">
+          <div class="p-ico">🖼</div>
+          <div>cloudflare crawl API</div>
+          <div class="p-hint">upload in notes mode</div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 7: HAS IMG -->
+    <!-- SLIDE 8: ANTHROPIC SKILLS -->
     <div class="d-slide has-img" data-slide="8">
-      <div class="d-badge">the tool shed</div>
-      <div class="d-counter"><em>09</em>/16</div>
+      <div class="d-badge">THE TOOL SHED</div>
+      <div class="d-counter"><em>09</em> / 16</div>
       <div class="d-content">
-        <div class="d-label">build spotlight</div>
-        <div class="d-title">palantir for free<em>.</em></div>
+        <div class="d-label">resource drop</div>
+        <div class="d-title">build your own skills<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Solo dev rebuilt the Iran strike as a 4D replay using only public OSINT + AI agents</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Flights, satellites, shipping data, GPS blackouts - synthesized in real time</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>One person. Free. Palantir-level. This is where AI tooling is heading.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Anthropic's 32-page guide to building custom skills for Claude — the full playbook</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Skills are instruction folders Claude loads dynamically for specialized tasks</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Official repo at github.com/anthropics/skills with production examples</span></div>
         </div>
       </div>
-      <div class="d-img-area">
-        <img id="disp-ts-1" src="images/image5.png" alt="">
-      </div>
-    </div>
-
-    <!-- SLIDE 8: HAS IMG WITH TWEET -->
-    <div class="d-slide has-img has-tweet" data-slide="9">
-      <div class="d-badge">the tool shed</div>
-      <div class="d-counter"><em>10</em>/16</div>
-      <div class="d-content">
-        <div class="d-label">hardware drop</div>
-        <div class="d-title">kill the mic<em>.</em></div>
-        <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Devaillance Spectra 1 - portable device that emits an inaudible signal to block nearby microphones from capturing intelligible audio</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Detects and logs listening devices, runs entirely on-device - no cloud, no data leaving the room</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>$999 pre-order (refundable) · shipping H2 2026 - built for the AI surveillance era</span></div>
-        </div>
-      </div>
-      <div class="d-tweet-area">
-        <div class="tweet-wrap">
-          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
-            <a href="https://twitter.com/aidaxbaradari/status/2028864606568067491"></a>
-          </blockquote>
-        </div>
-        <a href="https://x.com/aidaxbaradari/status/2028864606568067491" class="tweet-fallback">View on X</a>
-      </div>
-    </div>
-
-    <!-- SLIDE 9: HAS IMG WITH TWEET -->
-    <div class="d-slide has-img has-tweet" data-slide="10">
-      <div class="d-badge">the tool shed</div>
-      <div class="d-counter"><em>11</em>/16</div>
-      <div class="d-content">
-        <div class="d-label">tool drop</div>
-        <div class="d-title">google drive for agents<em>.</em></div>
-        <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Google Workspace CLI (gws) - one unified CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, and Admin</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>40+ agent skills with native MCP server support - point Claude or Gemini at it and let them work</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Dynamically built from Google's Discovery Service - auto-updates when new APIs ship</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>4,900 GitHub stars in 3 days. Open source. The agent infrastructure layer is forming fast.</span></div>
-        </div>
-      </div>
-      <div class="d-tweet-area">
-        <div class="tweet-wrap">
-          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
-            <a href="https://twitter.com/addyosmani/status/2029372736267805081"></a>
-          </blockquote>
-        </div>
-        <a href="https://x.com/addyosmani/status/2029372736267805081" class="tweet-fallback">View on X</a>
-      </div>
-    </div>
-
-    <!-- SLIDE 10: TRANSITION -->
-    <div class="d-slide transition-slide" data-slide="11">
-      <div class="d-badge">ai vs. reality</div>
-      <div class="d-counter"><em>12</em>/16</div>
-      <div class="d-content">
-        <div class="d-title">ai vs. reality<em>.</em></div>
-        <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>The hype says zero humans. The data says otherwise. Let's stress-test the narrative.</span></div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-ts-2" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-ts-2">
+          <div class="p-ico">🖼</div>
+          <div>anthropic skills guide</div>
+          <div class="p-hint">upload in notes mode</div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 12: HAS TWEET -->
-    <div class="d-slide has-img has-tweet" data-slide="12">
-      <div class="d-badge">ai vs. reality</div>
-      <div class="d-counter"><em>13</em>/16</div>
+    <!-- SLIDE 9: POLSIA TRANSITION -->
+    <div class="d-slide no-img transition-slide" data-slide="9">
+      <div class="d-badge">DISSECTING POLSIA</div>
+      <div class="d-counter"><em>10</em> / 16</div>
       <div class="d-content">
-        <div class="d-label">the claim</div>
-        <div class="d-title">the zero human lie<em>.</em></div>
+        <div class="d-label">SEGMENT 04</div>
+        <div class="d-title">dissecting polsia<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Solo founders claiming $1.7M ARR with zero employees - AI agents running everything</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>An AI CEO named Felix ships products, manages agents, runs support at OpenClaw</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>The pitch: build a million-dollar company without hiring a single person</span></div>
-        </div>
-      </div>
-      <div class="d-tweet-area">
-        <div class="tweet-wrap">
-          <blockquote class="twitter-tweet" data-theme="dark" data-width="480" data-conversation="none">
-            <a href="https://twitter.com/FelixCraftAI/status/2025280904088682857"></a>
-          </blockquote>
-        </div>
-        <a href="https://x.com/FelixCraftAI/status/2025280904088682857" class="tweet-fallback">View on X</a>
-      </div>
-    </div>
-
-    <!-- SLIDE 12: NO IMG -->
-    <div class="d-slide no-img" data-slide="13">
-      <div class="d-badge">ai vs. reality</div>
-      <div class="d-counter"><em>14</em>/16</div>
-      <div class="d-content">
-        <div class="d-label">the reality check</div>
-        <div class="d-title">agents are mid<em>.</em></div>
-        <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>95% of "AI agents" in 2026 are glorified chatbots with a for loop and an API key</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>They hallucinate, break silently, and cost more than the junior dev they replaced</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>The ones that actually work? Boring. IT tickets, data entry, onboarding flows. Not CEOs.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>AI that runs your company while you sleep. We talk to the founder and stress-test the thesis.</span></div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 13: NO IMG -->
-    <div class="d-slide no-img" data-slide="14">
-      <div class="d-badge">ai vs. reality</div>
-      <div class="d-counter"><em>15</em>/16</div>
+    <!-- SLIDE 10: POLSIA OVERVIEW -->
+    <div class="d-slide has-img" data-slide="10">
+      <div class="d-badge">DISSECTING POLSIA</div>
+      <div class="d-counter"><em>11</em> / 16</div>
       <div class="d-content">
-        <div class="d-label">the real play</div>
-        <div class="d-title">the human in the loop wins<em>.</em></div>
+        <div class="d-label">guest spotlight</div>
+        <div class="d-title">$50/mo to launch a company<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Every "zero employee" company quietly has a human fixing what the agents break</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>The real alpha: one person + AI tools outperforms a team of 10 without them</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Stop chasing full automation. Start asking: what can I do now that was impossible last month?</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Autonomous agents handle engineering, marketing, and operations 24/7</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>1,100+ companies running — solo founder hit $1M ARR in about one month</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Not a copilot — full team replacement. Polsia takes 20% of revenue.</span></div>
+        </div>
+      </div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-pol-1" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-pol-1">
+          <div class="p-ico">🖼</div>
+          <div>polsia dashboard / logo</div>
+          <div class="p-hint">upload in notes mode</div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 14: NO IMG - OUTRO -->
+    <!-- SLIDE 11: POLSIA QUESTIONS -->
+    <div class="d-slide no-img" data-slide="11">
+      <div class="d-badge">DISSECTING POLSIA</div>
+      <div class="d-counter"><em>12</em> / 16</div>
+      <div class="d-content">
+        <div class="d-label">the hard questions</div>
+        <div class="d-title">when agents break<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Self-reported revenue, AI selling to AI — how do we know any of this is real?</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>What does failure look like when you're the only human in the loop?</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Does every company become a one-person operation in 2-3 years?</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: MONEY TALKS TRANSITION -->
+    <div class="d-slide no-img transition-slide" data-slide="12">
+      <div class="d-badge">MONEY TALKS</div>
+      <div class="d-counter"><em>13</em> / 16</div>
+      <div class="d-content">
+        <div class="d-label">SEGMENT 05</div>
+        <div class="d-title">money talks<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Where smart money is flowing in AI this week — and what it signals.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: LECUN -->
+    <div class="d-slide has-img" data-slide="13">
+      <div class="d-badge">MONEY TALKS</div>
+      <div class="d-counter"><em>14</em> / 16</div>
+      <div class="d-content">
+        <div class="d-label">alpha drop</div>
+        <div class="d-title">$1B to kill LLMs<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Yann LeCun's AMI Labs raised $1.03B — Europe's largest-ever seed round</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Building "world models" with JEPA — claims language models are a dead end</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Backed by Bezos, Cuban, and Nvidia — four months from founding to $1B</span></div>
+        </div>
+      </div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-mt-1" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-mt-1">
+          <div class="p-ico">🖼</div>
+          <div>AMI Labs / LeCun</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: MURATI + REPLIT -->
+    <div class="d-slide has-img" data-slide="14">
+      <div class="d-badge">MONEY TALKS</div>
+      <div class="d-counter"><em>15</em> / 16</div>
+      <div class="d-content">
+        <div class="d-label">alpha drop</div>
+        <div class="d-title">follow the chips<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Murati's Thinking Machines Lab locks in gigawatt of Nvidia Rubin GPUs for 2027</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Replit tripled to $9B valuation with $400M Series D — targeting $1B run-rate</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Nvidia making significant investments across the board — the picks-and-shovels bet deepens</span></div>
+        </div>
+      </div>
+      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
+        <img id="disp-mt-2" src="" alt="" style="display:none">
+        <div class="d-img-placeholder" id="dip-disp-mt-2">
+          <div class="p-ico">🖼</div>
+          <div>funding / deal visual</div>
+          <div class="p-hint">upload in notes mode</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: TAP IN -->
     <div class="d-slide no-img" data-slide="15">
-      <div class="d-badge">tap in</div>
-      <div class="d-counter"><em>16</em>/16</div>
+      <div class="d-badge">TAP IN</div>
+      <div class="d-counter"><em>16</em> / 16</div>
       <div class="d-content">
         <div class="d-label">every friday · 10am est · blocmates.</div>
         <div class="d-title">tap in<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>AI went from chatbot to instrument of state power - and a 24-year-old built a $5.5B fund betting on what powers it</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>The tools are real, the agents are early, and the infrastructure layer is just getting started</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Subscribe at blocmates.com for the weekly breakdown<em>.</em></span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Oracle is drowning, Murati is building, LeCun is betting against everyone — follow the money</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Full autonomy vs. copilots is the defining question of 2026 — Polsia is the first real test</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>subscribe at blocmates.com for the weekly breakdown<em>.</em></span></div>
         </div>
       </div>
     </div>
@@ -873,11 +912,15 @@ body.display-active .topbar:hover {
 const imgs = {};
 const links = {};
 const defaultImages = {
-  'disp-hs-img': 'images/image.png',
-  'disp-hs-1': 'images/image2.png',
-  'disp-hs-2': 'images/image3.png',
-  'disp-hs-3': 'images/image4.png',
-  'disp-ts-1': 'images/image5.png'
+  'disp-hs-1': 'images/image.png',
+  'disp-hs-2': 'images/image2.png',
+  'disp-hs-3': 'images/image3.png',
+  'disp-hs-4': 'images/image4.png',
+  'disp-ts-1': 'images/image5.png',
+  'disp-ts-2': 'images/image6.png',
+  'disp-pol-1': 'images/image7.png',
+  'disp-mt-1': 'images/image8.png',
+  'disp-mt-2': 'images/image9.png'
 };
 
 // ── Mode ──
@@ -913,7 +956,7 @@ function navTo(id, el) {
   el.classList.add('active');
 }
 const ns = document.getElementById('notesScroll');
-const sIds = ['n-intro','n-highsignal','n-tips','n-seg4','n-tapin'];
+const sIds = ['n-highsignal','n-tips','n-seg4','n-seg5','n-tapin'];
 ns.addEventListener('scroll', () => {
   let cur = sIds[0];
   sIds.forEach(id => { const el = document.getElementById(id); if (el && ns.scrollTop >= el.offsetTop - 100) cur = id; });
