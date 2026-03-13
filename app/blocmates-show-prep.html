@@ -188,6 +188,8 @@ body.display-active .topbar:hover {
 /* With image: top=content, bottom=image */
 .d-slide.has-img { grid-template-rows:44vh 56vh; }
 .d-slide.has-tweet { grid-template-rows:38vh 62vh; }
+.d-slide.has-tweet .d-content { order:0; border-top:none; border-bottom:1px solid rgba(237,230,221,0.07); }
+.d-slide.has-tweet .d-tweet-area { order:1; }
 .d-slide.has-img .d-content { order:0; border-top:none; border-bottom:1px solid rgba(237,230,221,0.07); }
 .d-slide.has-img .d-img-area { order:1; }
 /* No image: single full content */
@@ -225,9 +227,9 @@ body.display-active .topbar:hover {
 .d-img-area.dual { display:grid; grid-template-columns:1fr 1fr; gap:14px; cursor:default; }
 .d-img-area.dual img { object-fit:cover; cursor:zoom-in; }
 .d-img-area.dual:hover img { transform:none; }
-.d-tweet-area { order:1; display:flex; align-items:flex-start; justify-content:center; padding:20px 24px; overflow-y:auto; background:transparent; align-self:stretch; width:100%; min-height:0; border-top:1px solid rgba(237,230,221,0.07); }
-.d-tweet-area .tweet-wrap { width:100%; max-width:520px; background:transparent; border:none; padding:0; min-height:auto; }
-.d-tweet-area .tweet-fallback { font-size:13px; color:rgba(93,155,213,0.7); text-decoration:none; margin-top:8px; display:inline-block; }
+.d-tweet-area { order:1; display:flex; align-items:center; justify-content:center; padding:14px 24px; overflow:hidden; background:rgba(37,63,88,0.08); align-self:stretch; width:100%; min-height:0; border-radius:0 0 22px 22px; }
+.d-tweet-area iframe { width:100%; max-width:550px; height:100%; min-height:320px; border:none; border-radius:14px; }
+.d-tweet-area .tweet-fallback { display:block; text-align:center; font-size:13px; color:rgba(93,155,213,0.7); text-decoration:none; margin-top:10px; }
 .d-tweet-area .tweet-fallback:hover { color:#5b9bd5; }
 .d-img-placeholder {
   width:100%; height:100%; display:flex; flex-direction:column;
@@ -349,7 +351,7 @@ body.display-active .topbar:hover {
     <div class="sb-lbl">segments</div>
     <div class="nav-it active" data-s="n-highsignal" onclick="navTo('n-highsignal',this)"><span class="nav-n">01</span>high signal</div>
     <div class="nav-it" data-s="n-tips" onclick="navTo('n-tips',this)"><span class="nav-n">02</span>the tool shed</div>
-    <div class="nav-it" data-s="n-seg4" onclick="navTo('n-seg4',this)"><span class="nav-n">03</span>dissecting polsia</div>
+    <div class="nav-it" data-s="n-seg4" onclick="navTo('n-seg4',this)"><span class="nav-n">03</span>distributed compute</div>
     <div class="nav-it" data-s="n-seg5" onclick="navTo('n-seg5',this)"><span class="nav-n">04</span>money talks</div>
     <div class="nav-it" data-s="n-tapin" onclick="navTo('n-tapin',this)"><span class="nav-n">05</span>tap in</div>
     <div class="nav-div"></div>
@@ -357,7 +359,7 @@ body.display-active .topbar:hover {
     <div style="padding:0 16px">
       <div class="t-row"><span>high signal</span><span class="t-val">~15 min</span></div>
       <div class="t-row"><span>the tool shed</span><span class="t-val">~10 min</span></div>
-      <div class="t-row"><span>dissecting polsia</span><span class="t-val">~15 min</span></div>
+      <div class="t-row"><span>distributed compute</span><span class="t-val">~15 min</span></div>
       <div class="t-row"><span>money talks</span><span class="t-val">~10 min</span></div>
       <div class="t-row"><span>tap in</span><span class="t-val">~5 min</span></div>
       <div class="nav-div"></div>
@@ -476,36 +478,46 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- 04 DISSECTING POLSIA -->
+    <!-- 04 DISTRIBUTED COMPUTE -->
     <div class="n-section" id="n-seg4" draggable="true" ondragstart="dragStart(event,'n-seg4')" ondragover="dragOver(event)" ondrop="drop(event,'n-seg4')" ondragleave="dragLeave(event)">
       <div class="n-sec-head">
-        <span class="drag-handle">⠿</span>
+        <span class="drag-handle">⠇</span>
         <span class="n-sec-num">04</span>
-        <span class="n-sec-title">dissecting polsia</span>
+        <span class="n-sec-title">distributed compute</span>
         <div class="n-sec-line"></div>
         <span class="n-sec-time">~15 min</span>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">What Polsia actually is <span class="tag ts">overview</span></div>
-        <div class="n-editable" contenteditable="false">Sign up for $50/mo. Polsia spins up autonomous agents — engineering (web server, GitHub, database), marketing (Twitter, email, Meta Ads, UGC), and operations. They plan, code, and run the company 24/7. Polsia takes 20% of revenue. 1,100+ companies running simultaneously. Solo founder Ben Cera hit $1M ARR in about one month. Not a copilot — a full replacement for the team.</div>
-        <div class="n-img-slot" id="slot-pol-1">
-          <label class="n-upload-label" for="img-pol-1"><span class="ico">🖼</span><span>drop image or click to upload</span><span class="hint">png · jpg · gif</span></label>
-          <input type="file" id="img-pol-1" accept="image/*" onchange="loadImg(this,'disp-pol-1')">
+        <div class="n-card-title">The zeitgeist: decentralized AI <span class="tag ts">overview</span></div>
+        <div class="n-editable" contenteditable="false">The theme this week is unmistakable: AI is decentralizing. Perplexity is running inference on Mac minis. Politicians are trying to freeze data center construction. And open networks are training 70B parameter models without anyone's permission. The centralized compute monopoly is being challenged from every angle — hardware, policy, and protocol.</div>
+      </div>
+
+      <div class="n-card">
+        <div class="n-card-title">Templar: permissionless 70B training <span class="tag ts">project</span></div>
+        <div class="n-editable" contenteditable="false">Templar is a decentralized training network on Bittensor. Anyone with a GPU can contribute to training frontier models — no permission required. TEMPLAR III is their live 70B parameter run using SparseLoCo, which communicates only 1-3% of gradients with 2-bit quantization. It outperforms DiLoCo and DeMo on communication efficiency. This is real distributed training happening right now, not a whitepaper.</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://x.com/tplr_ai/status/2031388295972929720">
         </div>
       </div>
 
       <div class="n-card">
-        <div class="n-card-title">Interview questions <span class="tag tw">talking points</span></div>
-        <div class="n-editable" contenteditable="false">• What was your ah-ha moment with AI?
-• Explain Polsia like you're telling a friend, not pitching a VC. Sign up, then what?
-• The 80/20 framework — what does "creative director of an AI company" mean day-to-day?
-• Pick one company Polsia built autonomously — walk through start to finish
-• Why full autonomy over copilots? Most of the industry builds assistants. You built a replacement.
-• When it breaks — the honest version. What does failure look like when you're the only human?
-• The skepticism question — self-reported revenue, AI companies selling to AI companies. Is any of this real?
-• Where is AI headed in 2-3 years? Does every company become one person?
-• The thing nobody's talking about — what risk or shift is underappreciated right now?</div>
+        <div class="n-card-title">Hermes Agent: open source agent that grows <span class="tag ts">project</span></div>
+        <div class="n-editable" contenteditable="false">Nous Research launched Hermes Agent — an open source personal agent with persistent multi-level memory that gets smarter over time. It has dedicated machine access and remembers what it learns across sessions. Hermes 4.3 is the first model trained fully decentralized over the internet using Psyche. This is the convergence: decentralized training producing decentralized agents.</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://x.com/NousResearch/status/2026758996107898954">
+        </div>
+      </div>
+
+      <div class="n-card">
+        <div class="n-card-title">Venice.ai: private AI goes onchain <span class="tag ts">project</span></div>
+        <div class="n-editable" contenteditable="false">Venice.ai is Erik Voorhees' private, uncensored AI platform — built on open-source models with decentralized inference. No data stored, no conversation logs. The VVV token on Base lets users stake for permanent API capacity: stake 1% of supply, get 1% of throughput forever. It's the crypto-native answer to centralized AI — inference that nobody can shut down, censor, or surveil.</div>
+        <div class="n-link-area">
+          <div class="n-link-lbl">link</div>
+          <input class="n-link-inp" type="url" value="https://x.com/therollupco/status/2030683586978775250">
+        </div>
       </div>
     </div>
 
@@ -557,7 +569,7 @@ body.display-active .topbar:hover {
       </div>
       <div class="wu-list">
         <div class="wu-item" contenteditable="false"><span class="wu-n">01</span>The AI infrastructure buildout is creating winners and casualties at the same speed — Oracle is bleeding, Murati is building, and LeCun is betting against everything.</div>
-        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>Full autonomy vs. copilots is the defining question of 2026. Polsia says replace the team. The market is still deciding.</div>
+        <div class="wu-item" contenteditable="false"><span class="wu-n">02</span>Decentralized compute is no longer theoretical — open networks are training 70B models and shipping agents that grow on their own.</div>
         <div class="wu-item" contenteditable="false"><span class="wu-n">03</span>Subscribe at blocmates.com for the weekly breakdown.</div>
       </div>
     </div>
@@ -572,13 +584,13 @@ body.display-active .topbar:hover {
     <!-- SLIDE 0: INTRO HERO -->
     <div class="d-slide intro-hero" data-slide="0">
       <div class="d-badge">blocmates.</div>
-      <div class="d-counter"><em>01</em> / 17</div>
+      <div class="d-counter"><em>01</em> / 18</div>
       <div class="d-content">
         <div class="d-label">episode 03</div>
-        <div class="d-title">autonomous businesses<em>.</em></div>
+        <div class="d-title">decentralized ai is here<em>.</em></div>
         <div class="d-bullets">
           <div class="d-bullet"><span class="d-bdot"></span><span>Oracle is drowning in debt and AI is now a political weapon</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Meet the guy whose AI runs 1,100 companies while he sleeps</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Decentralized compute is training 70B models without a single data center</span></div>
           <div class="d-bullet"><span class="d-bdot"></span><span>$2B+ in new AI funding dropped this week alone</span></div>
         </div>
       </div>
@@ -589,18 +601,13 @@ body.display-active .topbar:hover {
             <div class="pfp-name">brody</div>
             <div class="pfp-role">host</div>
           </div>
-          <div class="pfp-card">
-            <img src="images/guest.png" style="width:224px;height:224px;border-radius:50%;object-fit:cover">
-            <div class="pfp-name">ben cera</div>
-            <div class="pfp-role">guest</div>
-          </div>
         </div>
       </div>
     </div>
 
     <!-- SLIDE 1: HIGH SIGNAL TRANSITION -->
     <div class="d-slide no-img transition-slide" data-slide="1">
-      <div class="d-counter"><em>02</em> / 17</div>
+      <div class="d-counter"><em>02</em> / 18</div>
       <div class="d-content">
         <div class="d-label">SEGMENT 02</div>
         <div class="d-title">high signal<em>.</em></div>
@@ -613,7 +620,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 2: ORACLE -->
     <div class="d-slide has-img" data-slide="2">
       <div class="d-badge">HIGH SIGNAL</div>
-      <div class="d-counter"><em>03</em> / 17</div>
+      <div class="d-counter"><em>03</em> / 18</div>
       <div class="d-content">
         <div class="d-label">🔴 lead story</div>
         <div class="d-title">oracle is bleeding<em>.</em></div>
@@ -636,7 +643,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 3: COPILOT COWORK -->
     <div class="d-slide has-img" data-slide="3">
       <div class="d-badge">HIGH SIGNAL</div>
-      <div class="d-counter"><em>04</em> / 17</div>
+      <div class="d-counter"><em>04</em> / 18</div>
       <div class="d-content">
         <div class="d-label">🔴 high signal</div>
         <div class="d-title">copilot cowork<em>.</em></div>
@@ -659,7 +666,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 4: PERPLEXITY PC -->
     <div class="d-slide has-img" data-slide="4">
       <div class="d-badge">HIGH SIGNAL</div>
-      <div class="d-counter"><em>05</em> / 17</div>
+      <div class="d-counter"><em>05</em> / 18</div>
       <div class="d-content">
         <div class="d-label">🔴 high signal</div>
         <div class="d-title">perplexity goes local<em>.</em></div>
@@ -682,7 +689,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 5: DATA CENTERS -->
     <div class="d-slide has-img" data-slide="5">
       <div class="d-badge">HIGH SIGNAL</div>
-      <div class="d-counter"><em>06</em> / 17</div>
+      <div class="d-counter"><em>06</em> / 18</div>
       <div class="d-content">
         <div class="d-label">🔴 high signal</div>
         <div class="d-title">ai goes political<em>.</em></div>
@@ -705,7 +712,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 6: TOOL SHED TRANSITION -->
     <div class="d-slide no-img transition-slide" data-slide="6">
       <div class="d-badge">THE TOOL SHED</div>
-      <div class="d-counter"><em>07</em> / 17</div>
+      <div class="d-counter"><em>07</em> / 18</div>
       <div class="d-content">
         <div class="d-label">SEGMENT 03</div>
         <div class="d-title">the tool shed<em>.</em></div>
@@ -718,7 +725,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 7: CLOUDFLARE -->
     <div class="d-slide has-img" data-slide="7">
       <div class="d-badge">THE TOOL SHED</div>
-      <div class="d-counter"><em>08</em> / 17</div>
+      <div class="d-counter"><em>08</em> / 18</div>
       <div class="d-content">
         <div class="d-label">tool drop</div>
         <div class="d-title">scrape anything<em>.</em></div>
@@ -741,7 +748,7 @@ body.display-active .topbar:hover {
     <!-- SLIDE 8: ANTHROPIC SKILLS -->
     <div class="d-slide has-img" data-slide="8">
       <div class="d-badge">THE TOOL SHED</div>
-      <div class="d-counter"><em>09</em> / 17</div>
+      <div class="d-counter"><em>09</em> / 18</div>
       <div class="d-content">
         <div class="d-label">resource drop</div>
         <div class="d-title">build your own skills<em>.</em></div>
@@ -761,61 +768,84 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- SLIDE 9: POLSIA TRANSITION -->
+    <!-- SLIDE 9: DISTRIBUTED COMPUTE TRANSITION -->
     <div class="d-slide no-img transition-slide" data-slide="9">
-      <div class="d-badge">DISSECTING POLSIA</div>
-      <div class="d-counter"><em>10</em> / 17</div>
+      <div class="d-badge">DISTRIBUTED COMPUTE</div>
+      <div class="d-counter"><em>10</em> / 18</div>
       <div class="d-content">
         <div class="d-label">SEGMENT 04</div>
-        <div class="d-title">dissecting polsia<em>.</em></div>
+        <div class="d-title">decentralized ai is here<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>AI that runs your company while you sleep. We talk to the founder and stress-test the thesis.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Mac minis and consumer GPUs running inference — anyone can be a node</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Iran bombing data centers — centralized AI infra becomes a military target</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Politicians cracking down with moratoriums and zoning bans on new data centers</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Open networks training 70B models without permission — decentralize or die</span></div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 10: POLSIA OVERVIEW -->
-    <div class="d-slide has-img" data-slide="10">
-      <div class="d-badge">DISSECTING POLSIA</div>
-      <div class="d-counter"><em>11</em> / 17</div>
+    <!-- SLIDE 10: TEMPLAR -->
+    <div class="d-slide has-tweet" data-slide="10">
+      <div class="d-badge">DISTRIBUTED COMPUTE</div>
+      <div class="d-counter"><em>11</em> / 18</div>
       <div class="d-content">
-        <div class="d-label">guest spotlight</div>
-        <div class="d-title">$50/mo to launch a company<em>.</em></div>
+        <div class="d-label">project spotlight</div>
+        <div class="d-title">templar: permissionless training<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Autonomous agents handle engineering, marketing, and operations 24/7</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>1,100+ companies running — solo founder hit $1M ARR in about one month</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Not a copilot — full team replacement. Polsia takes 20% of revenue.</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Decentralized training network on Bittensor — anyone with a GPU can contribute to frontier model training</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>TEMPLAR III is a live 70B parameter permissionless training run with SparseLoCo efficiency</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Communicating only 1-3% of gradients with 2-bit quantization — outperforming DiLoCo and DeMo</span></div>
         </div>
       </div>
-      <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
-        <img id="disp-pol-1" src="" alt="" style="display:none">
-        <div class="d-img-placeholder" id="dip-disp-pol-1">
-          <div class="p-ico">🖼</div>
-          <div>polsia dashboard / logo</div>
-          <div class="p-hint">upload in notes mode</div>
-        </div>
+      <div class="d-tweet-area">
+        <iframe src="https://platform.twitter.com/embed/Tweet.html?dnt=true&id=2031388295972929720&lang=en&theme=dark" allowfullscreen></iframe>
+        <a class="tweet-fallback" href="https://x.com/tplr_ai/status/2031388295972929720" target="_blank">View on X ↗</a>
       </div>
     </div>
 
-    <!-- SLIDE 11: POLSIA QUESTIONS -->
-    <div class="d-slide no-img" data-slide="11">
-      <div class="d-badge">DISSECTING POLSIA</div>
-      <div class="d-counter"><em>12</em> / 17</div>
+    <!-- SLIDE 11: HERMES AGENT -->
+    <div class="d-slide has-tweet" data-slide="11">
+      <div class="d-badge">DISTRIBUTED COMPUTE</div>
+      <div class="d-counter"><em>12</em> / 18</div>
       <div class="d-content">
-        <div class="d-label">the hard questions</div>
-        <div class="d-title">when agents break<em>.</em></div>
+        <div class="d-label">project spotlight</div>
+        <div class="d-title">hermes: the agent that grows<em>.</em></div>
         <div class="d-bullets">
-          <div class="d-bullet"><span class="d-bdot"></span><span>Self-reported revenue, AI selling to AI — how do we know any of this is real?</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>What does failure look like when you're the only human in the loop?</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Does every company become a one-person operation in 2-3 years?</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Nous Research launches Hermes Agent — open source, persistent memory, gets smarter over time</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Hermes 4.3 is the first model trained fully decentralized over the internet via Psyche</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Not a chatbot — a personal agent with dedicated machine access that remembers what it learns</span></div>
         </div>
+      </div>
+      <div class="d-tweet-area">
+        <iframe src="https://platform.twitter.com/embed/Tweet.html?dnt=true&id=2026758996107898954&lang=en&theme=dark" allowfullscreen></iframe>
+        <a class="tweet-fallback" href="https://x.com/NousResearch/status/2026758996107898954" target="_blank">View on X ↗</a>
       </div>
     </div>
 
-    <!-- SLIDE 12: MONEY TALKS TRANSITION -->
-    <div class="d-slide no-img transition-slide" data-slide="12">
+    
+    <!-- SLIDE 12: VENICE.AI -->
+    <div class="d-slide has-tweet" data-slide="12">
+      <div class="d-badge">DISTRIBUTED COMPUTE</div>
+      <div class="d-counter"><em>13</em> / 18</div>
+      <div class="d-content">
+        <div class="d-label">project spotlight</div>
+        <div class="d-title">venice: private AI goes onchain<em>.</em></div>
+        <div class="d-bullets">
+          <div class="d-bullet"><span class="d-bdot"></span><span>Venice.ai delivers private, uncensored inference via open-source models — no data stored, no logs kept</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>VVV token on Base lets you stake for API capacity — 1% staked = 1% of inference throughput, forever</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Erik Voorhees' bet: decentralized compute + crypto rails = AI that nobody can shut down or censor</span></div>
+        </div>
+      </div>
+      <div class="d-tweet-area">
+        <iframe src="https://platform.twitter.com/embed/Tweet.html?dnt=true&id=2030683586978775250&lang=en&theme=dark" allowfullscreen></iframe>
+        <a class="tweet-fallback" href="https://x.com/therollupco/status/2030683586978775250" target="_blank">View on X ↗</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: MONEY TALKS TRANSITION -->
+    <div class="d-slide no-img transition-slide" data-slide="13">
       <div class="d-badge">MONEY TALKS</div>
-      <div class="d-counter"><em>13</em> / 17</div>
+      <div class="d-counter"><em>14</em> / 18</div>
       <div class="d-content">
         <div class="d-label">SEGMENT 05</div>
         <div class="d-title">money talks<em>.</em></div>
@@ -825,10 +855,10 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- SLIDE 13: LECUN -->
-    <div class="d-slide has-img" data-slide="13">
+    <!-- SLIDE 14: LECUN -->
+    <div class="d-slide has-img" data-slide="14">
       <div class="d-badge">MONEY TALKS</div>
-      <div class="d-counter"><em>14</em> / 17</div>
+      <div class="d-counter"><em>15</em> / 18</div>
       <div class="d-content">
         <div class="d-label">alpha drop</div>
         <div class="d-title">$1B to kill LLMs<em>.</em></div>
@@ -848,10 +878,10 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- SLIDE 14: META MOLTBOOK -->
-    <div class="d-slide has-img" data-slide="14">
+    <!-- SLIDE 15: META MOLTBOOK -->
+    <div class="d-slide has-img" data-slide="15">
       <div class="d-badge">MONEY TALKS</div>
-      <div class="d-counter"><em>15</em> / 17</div>
+      <div class="d-counter"><em>16</em> / 18</div>
       <div class="d-content">
         <div class="d-label">alpha drop</div>
         <div class="d-title">meta buys the agent feed<em>.</em></div>
@@ -871,10 +901,10 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- SLIDE 15: MURATI + REPLIT -->
-    <div class="d-slide has-img" data-slide="15">
+    <!-- SLIDE 16: MURATI + REPLIT -->
+    <div class="d-slide has-img" data-slide="16">
       <div class="d-badge">MONEY TALKS</div>
-      <div class="d-counter"><em>16</em> / 17</div>
+      <div class="d-counter"><em>17</em> / 18</div>
       <div class="d-content">
         <div class="d-label">alpha drop</div>
         <div class="d-title">follow the chips<em>.</em></div>
@@ -894,16 +924,16 @@ body.display-active .topbar:hover {
       </div>
     </div>
 
-    <!-- SLIDE 16: TAP IN -->
-    <div class="d-slide no-img" data-slide="16">
+    <!-- SLIDE 17: TAP IN -->
+    <div class="d-slide no-img" data-slide="17">
       <div class="d-badge">TAP IN</div>
-      <div class="d-counter"><em>17</em> / 17</div>
+      <div class="d-counter"><em>18</em> / 18</div>
       <div class="d-content">
         <div class="d-label">every friday · 10am est · blocmates.</div>
         <div class="d-title">tap in<em>.</em></div>
         <div class="d-bullets">
           <div class="d-bullet"><span class="d-bdot"></span><span>Oracle is drowning, Murati is building, LeCun is betting against everyone — follow the money</span></div>
-          <div class="d-bullet"><span class="d-bdot"></span><span>Full autonomy vs. copilots is the defining question of 2026 — Polsia is the first real test</span></div>
+          <div class="d-bullet"><span class="d-bdot"></span><span>Decentralized networks are training 70B models without permission — the compute monopoly is cracking</span></div>
           <div class="d-bullet"><span class="d-bdot"></span><span>subscribe at blocmates.com for the weekly breakdown<em>.</em></span></div>
         </div>
       </div>
@@ -929,6 +959,7 @@ body.display-active .topbar:hover {
   <button class="dot" onclick="goSlide(14)"></button>
   <button class="dot" onclick="goSlide(15)"></button>
   <button class="dot" onclick="goSlide(16)"></button>
+  <button class="dot" onclick="goSlide(17)"></button>
 </div>
 
 <script>
@@ -942,7 +973,6 @@ const defaultImages = {
   'disp-hs-4': 'images/image4.png',
   'disp-ts-1': 'images/image5.png',
   'disp-ts-2': 'images/image6.png',
-  'disp-pol-1': 'images/image7.png',
   'disp-mt-1': 'images/image8.png',
   'disp-mt-2': 'images/image9.png',
   'disp-mt-3': 'images/image10.png'
@@ -1063,7 +1093,7 @@ function updateLink(key, val) {
 // ── Display scroll / dots ──
 const dp = document.getElementById('displayPanel');
 const dots = document.querySelectorAll('.dot');
-const totalSlides = 17;
+const totalSlides = 18;
 let curSlide = 0;
 
 function goSlide(i) {
@@ -1139,6 +1169,6 @@ function drop(e, targetId) {
 applyDefaultImages();
 renderTwitterEmbeds();
 </script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8" onload="renderTwitterEmbeds()"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
