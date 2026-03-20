@@ -123,6 +123,7 @@ Showcase entertaining or instructive AI failures — from personal experience or
 | Episode | Segment 4             | Segment 5          |
 |---------|-----------------------|--------------------|
 | 01      | ai stack breakdown    | over / underrated  |
+| 04      | agentic payments      | zero-human companies | (guest: tom osman, custom 4-segment format)
 
 ---
 
