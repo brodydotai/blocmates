@@ -396,8 +396,8 @@ body.display-active .topbar:hover {
         </div>
       </div>
       <div class="d-img-area" onclick="openLightbox(this.querySelector('img'))">
-        <img id="disp-intro-1" src="images/image1.png?v=show6" alt="mirra builders" style="display:none">
-        <div class="d-img-placeholder">
+        <img id="disp-intro-1" src="images/image1.png?v=show6" alt="mirra builders" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="d-img-placeholder" style="display:none">
           <div class="p-ico">🖼</div>
           <div>image1.png</div>
           <div class="p-hint">upload in notes mode</div>
